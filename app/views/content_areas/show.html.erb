@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Template:</strong>
+  <%= @content_area.template %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @content_area.name %>
+</p>
+
+<p>
+  <strong>Width:</strong>
+  <%= @content_area.width %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @content_area.height %>
+</p>
+
+<p>
+  <strong>Content type:</strong>
+  <%= @content_area.content_type %>
+</p>
+
+<%= link_to 'Edit', edit_content_area_path(@content_area) %> |
+<%= link_to 'Back', content_areas_path %>

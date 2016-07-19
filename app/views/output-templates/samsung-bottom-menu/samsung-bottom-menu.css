@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+/* Content area layout */
+
+.content-area {
+  position: absolute;
+}
+
+.content-area.main-area {
+  width: 1280px;
+  height: 700px;
+  top: 0;
+  left: 0;
+}
+
+.content-area.menu {
+  width: 1280px;
+  height: 100px;
+  bottom: 0;
+  left: 0;
+}
+
+/* Menu */
+.content-area.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  line-height: 100px;
+  font-size: 32px;
+}

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Screen Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Width</th>
+      <th>Height</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @screen_types.each do |screen_type| %>
+      <tr>
+        <td><%= screen_type.name %></td>
+        <td><%= screen_type.width %></td>
+        <td><%= screen_type.height %></td>
+        <td><%= link_to 'Show', screen_type %></td>
+        <td><%= link_to 'Edit', edit_screen_type_path(screen_type) %></td>
+        <td><%= link_to 'Destroy', screen_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Screen Type', new_screen_type_path %>

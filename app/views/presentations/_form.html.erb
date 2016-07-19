@@ -1,0 +1,33 @@
+<%= form_for(presentation) do |f| %>
+  <% if presentation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(presentation.errors.count, "error") %> prohibited this presentation from being saved:</h2>
+
+      <ul>
+      <% presentation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :template_id %>
+    <%= f.select :template_id, (presentation.new_record? ? @templates : [presentation.template]).map{|t| [t.full_name, t.id]} %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+  <% if !presentation.new_record? %>
+    <%= render 'content_blocks', presentation: presentation %>
+    <%= render 'media_files', presentation: presentation %>
+  <% end %>
+
+<% end %>

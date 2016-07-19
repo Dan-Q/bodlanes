@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content area:</strong>
+  <%= @content_block.content_area %>
+</p>
+
+<p>
+  <strong>Presentation:</strong>
+  <%= @content_block.presentation %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @content_block.name %>
+</p>
+
+<p>
+  <strong>Content type:</strong>
+  <%= @content_block.content_type %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @content_block.content %>
+</p>
+
+<p>
+  <strong>Default:</strong>
+  <%= @content_block.default %>
+</p>
+
+<%= link_to 'Edit', edit_presentation_content_block_path(@presentation, @content_block) %> |
+<%= link_to 'Back', presentation_content_blocks_path %>

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Content Areas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Template</th>
+      <th>Name</th>
+      <th>Width</th>
+      <th>Height</th>
+      <th>Content type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @content_areas.each do |content_area| %>
+      <tr>
+        <td><%= content_area.template %></td>
+        <td><%= content_area.name %></td>
+        <td><%= content_area.width %></td>
+        <td><%= content_area.height %></td>
+        <td><%= content_area.content_type %></td>
+        <td><%= link_to 'Show', content_area %></td>
+        <td><%= link_to 'Edit', edit_content_area_path(content_area) %></td>
+        <td><%= link_to 'Destroy', content_area, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Content Area', new_content_area_path %>

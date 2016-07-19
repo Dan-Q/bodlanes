@@ -1,0 +1,6 @@
+<h1>Editing Media File</h1>
+
+<%= render 'form', presentation: @presentation, media_file: @media_file %>
+
+<%= link_to 'Show', [@presentation, @media_file] %> |
+<%= link_to 'Back', edit_presentation_path(@presentation) %>

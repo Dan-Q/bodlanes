@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @scren_type.name %>
+</p>
+
+<p>
+  <strong>Width:</strong>
+  <%= @scren_type.width %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @scren_type.height %>
+</p>
+
+<%= link_to 'Edit', edit_scren_type_path(@scren_type) %> |
+<%= link_to 'Back', scren_types_path %>

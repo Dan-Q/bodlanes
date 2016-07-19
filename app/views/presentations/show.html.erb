@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @presentation.name %>
+</p>
+
+<div>
+  <iframe width="<%= @presentation.template.screen_type.width %>" height="<%= @presentation.template.screen_type.height %>" src="<%= preview_presentation_path(@presentation) %>?zoom=0.5" style="zoom: 0.5;"></iframe>
+</div>
+
+<%= link_to 'Preview', preview_presentation_path(@presentation) %> |
+<%= link_to 'Download', download_presentation_path(@presentation) %> |
+<%= link_to 'Edit', edit_presentation_path(@presentation) %> |
+<%= link_to 'Back', presentations_path %>

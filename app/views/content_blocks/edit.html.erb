@@ -1,0 +1,6 @@
+<h1>Editing Content Block</h1>
+
+<%= render 'form', presentation: @presentation, content_block: @content_block %>
+
+<%= link_to 'Show', [@presentation, @content_block] %> |
+<%= link_to 'Back', presentation_content_blocks_path(@presentation) %>

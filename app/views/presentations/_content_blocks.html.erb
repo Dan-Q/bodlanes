@@ -1,0 +1,27 @@
+<div class="content-blocks">
+  <h2>Content Blocks</h2>
+  <ul>
+    <% presentation.template.content_areas.each do |ca| %>
+      <li>
+        <%= ca.name %>
+        <ul>
+          <% if (content_blocks = presentation.content_blocks.where(content_area: ca).order('`default` DESC, name ASC')).empty? %>
+            <li>No blocks.</li>
+          <% else %>
+            <% content_blocks.each do |cb| %>
+              <li>
+                <%= link_to cb.name, edit_presentation_content_block_path(presentation, cb) %>
+                <% if cb.default? %>
+                  (default)
+                <% end %>
+              </li>
+            <% end %>
+          <% end %>
+          <li>
+            <%= link_to 'New Content Block', new_presentation_content_block_path(presentation, content_block: { content_area_id: ca.id }) %>
+          </li>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,8 @@
+<h1>Editing Presentation</h1>
+
+<%= render 'form', presentation: @presentation %>
+
+<%= link_to 'Preview', preview_presentation_path(@presentation) %> |
+<%= link_to 'Download', download_presentation_path(@presentation) %> |
+<%= link_to 'Show', @presentation %> |
+<%= link_to 'Back', presentations_path %>

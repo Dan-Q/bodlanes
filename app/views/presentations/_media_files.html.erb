@@ -1,0 +1,17 @@
+<div class="media-files">
+  <h2>Media Files</h2>
+  <ul>
+    <% if (media_files = presentation.media_files.order('file_file_name ASC')).empty? %>
+      <li>No media files.</li>
+    <% else %>
+      <% media_files.each do |mf| %>
+        <li>
+          <%= link_to mf.file_file_name, presentation_media_file_path(presentation, mf) %>
+        </li>
+      <% end %>
+    <% end %>
+    <li>
+      <%= link_to 'Upload Media File', new_presentation_media_file_path(presentation) %>
+    </li>
+  </ul>
+</div>

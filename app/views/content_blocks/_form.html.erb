@@ -1,0 +1,60 @@
+<%= form_for([presentation, content_block]) do |f| %>
+  <% if content_block.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(content_block.errors.count, "error") %> prohibited this content_block from being saved:</h2>
+
+      <ul>
+      <% content_block.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :content_area_id %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :content_type %>
+    <%= f.select :content_type, { 'WYSIWYG' => :wysiwyg, 'Raw HTML' => :raw } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+  <script type="text/javascript">
+    tinymce.init({
+      selector: '#content_block_content',
+      plugins: 'link image code',
+      link_list: [
+        <%= @linkable_content_blocks.map{|cb| "{ title: '#{cb.name}', value: '#{cb.id}' }" }.join(', ').html_safe %>
+      ],
+      target_list: [
+        { title: 'Default', value: '' },
+        <%= @linkable_content_areas.map{|ca| "{ title: '#{ca.name}', value: '#{ca.id}' }" }.join(', ').html_safe %>
+      ],
+      link_title: false,
+      menubar: false,
+      min_height: 200,
+      image_caption: true,
+      image_advtab: true,
+      image_list: [
+        <%= @linkable_images.map{|i| "{ title: '#{i.file_file_name}', value: '#{i.file.url}' }"}.join(', ').html_safe %>
+      ],
+      image_class_list: [],
+      image_description: false,
+      image_prepend_url: '',
+      relative_urls: false
+    });
+  </script>
+<% end %>

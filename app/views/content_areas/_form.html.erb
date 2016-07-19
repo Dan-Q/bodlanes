@@ -1,0 +1,42 @@
+<%= form_for(content_area) do |f| %>
+  <% if content_area.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(content_area.errors.count, "error") %> prohibited this content_area from being saved:</h2>
+
+      <ul>
+      <% content_area.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :template %>
+    <%= f.text_field :template %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :width %>
+    <%= f.number_field :width %>
+  </div>
+
+  <div class="field">
+    <%= f.label :height %>
+    <%= f.number_field :height %>
+  </div>
+
+  <div class="field">
+    <%= f.label :content_type %>
+    <%= f.text_field :content_type %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

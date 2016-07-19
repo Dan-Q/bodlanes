@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content_area: 
+  presentation: 
+  name: MyString
+  content_type: MyString
+  content: MyText
+  default: false
+
+two:
+  content_area: 
+  presentation: 
+  name: MyString
+  content_type: MyString
+  content: MyText
+  default: false

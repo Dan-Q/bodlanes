@@ -1,0 +1,32 @@
+<%= form_for(scren_type) do |f| %>
+  <% if scren_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(scren_type.errors.count, "error") %> prohibited this scren_type from being saved:</h2>
+
+      <ul>
+      <% scren_type.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :width %>
+    <%= f.number_field :width %>
+  </div>
+
+  <div class="field">
+    <%= f.label :height %>
+    <%= f.number_field :height %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
