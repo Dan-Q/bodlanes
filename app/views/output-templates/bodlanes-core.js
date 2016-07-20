@@ -9,7 +9,7 @@ $(function(){
   function renderBlock(block_id, area_id){
     var block = getBlock(block_id);
     area_id = area_id || block.content_area_id;
-    $(".content-area[data-id='"+area_id+"']").html(block.content);
+    $(".content-area[data-id='"+area_id+"']").html(block.content).data('content-block-id', block_id);
   }
 
   function renderDefaultBlocks(){
@@ -19,10 +19,12 @@ $(function(){
   }
 
   function setUpHooks(){
-    $('body').click('a', function(event){
+    $('body').on('click', 'a', function(event){
       var a = $(event.target);
       var href = a.attr('href').match(/(\d+)$/);
       if(href){
+        a.closest('.content-area').find('a').removeClass('last-clicked');
+        a.addClass('last-clicked');
         renderBlock(parseInt(href[0]), parseInt(a.attr('target')));
         return false;
       }

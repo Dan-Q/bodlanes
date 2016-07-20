@@ -1,7 +1,12 @@
 # Screen types
-heritage_window = ScreenType.find_or_create_by(name: 'Heritage Window', width: 3200, height: 1080)
-samsung_tablet  = ScreenType.find_or_create_by(name: 'Samsung Tablet', width: 1280, height: 880)
-ttl_kiosk       = ScreenType.find_or_create_by(name: 'TTL Kiosk', width: 1600, height: 1200)
+full_hd_monitor = ScreenType.find_or_create_by(name: 'Full HD', width: 1920, height: 1080, default_zoom: 0.9)
+samsung_tablet  = ScreenType.find_or_create_by(name: 'Samsung Tablet', width: 1280, height: 880, default_zoom: 0.9)
+ttl_kiosk       = ScreenType.find_or_create_by(name: 'TTL Kiosk', width: 1600, height: 1200, default_zoom: 0.7)
+heritage_window = ScreenType.find_or_create_by(name: 'Heritage Window', width: 3200, height: 1080, default_zoom: 0.4)
+
+# Full HD: Full Screen
+full_hd_fs      = full_hd_monitor.templates.find_or_create_by(name: 'Full Screen', code: 'heritage-fs')
+full_hd_fs.content_areas.find_or_create_by(name: 'Main Area', width: 1920, height: 1080, content_type: 'wysiwyg')
 
 # Heritage Window: Full Screen
 heritage_fs     = heritage_window.templates.find_or_create_by(name: 'Full Screen', code: 'heritage-fs')
@@ -19,5 +24,5 @@ ss_tablet_fs.content_areas.find_or_create_by(name: 'Main Area', width: 1280, hei
 # Samsung Tablet: Bottom Menu
 ss_tablet_bm    = samsung_tablet.templates.find_or_create_by(name: 'Bottom Menu', code: 'samsung-bottom-menu')
 ss_tablet_bm.content_areas.find_or_create_by(name: 'Main Area', width: 1280, height: 700, content_type: 'wysiwyg')
-ss_tablet_bm.content_areas.find_or_create_by(name: 'Menu', width: 1280, height: 100, content_type: 'wysiwyg')
+ss_tablet_bm.content_areas.find_or_create_by(name: 'Menu Area', width: 1280, height: 100, content_type: 'wysiwyg')
 

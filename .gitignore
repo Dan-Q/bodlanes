@@ -40,3 +40,9 @@ bower.json
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Ignore emacs temp files
+*~
+
+# Ignore Bodlanes media uploads
+public/media/

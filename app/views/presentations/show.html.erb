@@ -6,10 +6,11 @@
 </p>
 
 <div>
-  <iframe width="<%= @presentation.template.screen_type.width %>" height="<%= @presentation.template.screen_type.height %>" src="<%= preview_presentation_path(@presentation) %>?zoom=0.5" style="zoom: 0.5;"></iframe>
+  <iframe width="<%= @presentation.template.screen_type.width %>" height="<%= @presentation.template.screen_type.height %>" src="<%= preview_presentation_path(@presentation) %>?zoom=<%= @presentation.template.screen_type.default_zoom %>" style="zoom: <%= @presentation.template.screen_type.default_zoom %>;"></iframe>
 </div>
 
 <%= link_to 'Preview', preview_presentation_path(@presentation) %> |
+<%= link_to 'Inline Edit', preview_presentation_path(@presentation, inline_edit: true) %> |
 <%= link_to 'Download', download_presentation_path(@presentation) %> |
 <%= link_to 'Edit', edit_presentation_path(@presentation) %> |
 <%= link_to 'Back', presentations_path %>

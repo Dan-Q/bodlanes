@@ -1,0 +1,16 @@
+---
+description: "<div class=\"color-palette-example\"><div style=\"background: #1e3231\">&nbsp;</div><div style=\"background: #485665\">&nbsp;</div><div style=\"background: #8e7c93\">&nbsp;</div><div style=\"background: #d0a5c0\">&nbsp;</div><div style=\"background: #f6c0d0\">&nbsp;</div></div>"
+css: |
+     body {
+       background: #f6c0d0;
+       color: #485665;
+     }
+     a, a:focus, a:visited, a:visited {
+       color: #1e3231;
+     }
+     .content-area.menu-area {
+       background-color: #d0a5c0;
+     }
+     .content-area.menu-area a.last-clicked {
+       background: #8e7c93;
+     }

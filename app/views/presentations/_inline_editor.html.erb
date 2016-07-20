@@ -1,0 +1,45 @@
+<%= javascript_include_tag '//cdn.tinymce.com/4/tinymce.min.js' %>
+<script>
+  $(function(){
+    alert("You're in Inline Edit mode. Hold ALT and click on a content-block to edit it. ALT and click again to save it.")
+    $('.content-area').on('click', function(e){
+      if(e.altKey){
+        if($(this).data('content-block-id')){
+          var content_block_id = $(this).data('content-block-id');
+          if($(this).hasClass('content-block-editing')){
+            // already editing in this content area - save changes and stop editing
+            while(tinymce.editors.length > 0) tinymce.editors[0].destroy();
+            $('.content-block-editing').removeClass('content-block-editing');
+            // save locally
+            content_blocks.filter(function(cb){ return(cb.id == content_block_id) })[0].content = $(this).html();
+            // save remotely
+            $.post('/presentations/' + presentation.id + '/content_blocks/' + content_block_id, {
+              '_method': 'patch',
+              'authenticity_token': $("meta[name='csrf-token']").attr('content'),
+              'content_block[content]': $(this).html()
+            });
+            // tell the user
+            alert('Saved content.');
+          } else {
+            // not yet editing in this content area - tidy up old editors, make editable, focus
+            while(tinymce.editors.length > 0) tinymce.editors[0].destroy();
+            $('.content-block-editing').removeClass('content-block-editing');
+            $(this).addClass('content-block-editing');
+            tinymce.init({
+              selector: '.content-block-editing',
+              inline: true,
+              auto_focus: true,
+              <%= render 'shared/tinymce_init' %>
+            });
+            return false;
+          }
+        }
+      }
+    });
+  });
+</script>
+<style>
+  .mce-panel {
+    opacity: 0.7;
+  }
+</style>

@@ -35,26 +35,7 @@
   <script type="text/javascript">
     tinymce.init({
       selector: '#content_block_content',
-      plugins: 'link image code',
-      link_list: [
-        <%= @linkable_content_blocks.map{|cb| "{ title: '#{cb.name}', value: '#{cb.id}' }" }.join(', ').html_safe %>
-      ],
-      target_list: [
-        { title: 'Default', value: '' },
-        <%= @linkable_content_areas.map{|ca| "{ title: '#{ca.name}', value: '#{ca.id}' }" }.join(', ').html_safe %>
-      ],
-      link_title: false,
-      menubar: false,
-      min_height: 200,
-      image_caption: true,
-      image_advtab: true,
-      image_list: [
-        <%= @linkable_images.map{|i| "{ title: '#{i.file_file_name}', value: '#{i.file.url}' }"}.join(', ').html_safe %>
-      ],
-      image_class_list: [],
-      image_description: false,
-      image_prepend_url: '',
-      relative_urls: false
+      <%= render 'shared/tinymce_init' %>
     });
   </script>
 <% end %>

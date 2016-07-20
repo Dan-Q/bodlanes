@@ -21,6 +21,19 @@
     <%= f.select :template_id, (presentation.new_record? ? @templates : [presentation.template]).map{|t| [t.full_name, t.id]} %>
   </div>
 
+  <script type="application/json" id="known-plugins-json">
+    <%= @known_plugins.to_json.html_safe %>
+  </script>
+  <div class="field">
+    <%= f.label :plugins_enabled %>
+    <%= f.text_field :plugins_enabled %>
+  </div>
+
+  <div class="field">
+    <%= f.label :custom_css %>
+    <%= f.text_area :custom_css %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
