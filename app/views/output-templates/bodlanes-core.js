@@ -1,6 +1,22 @@
 var presentation = JSON.parse($('#presentation-json').html());
 var content_blocks = JSON.parse($('#content-blocks-json').html());
 
+/* Callbacks (plugin engine) */
+var callbacks = [];
+function executeCallback(code, param){
+  console.log(code);
+  for(var i = 0; i < callbacks.length; i++){
+    var callback_function  = callbacks[i];
+    if(callback_function.code != code) continue;
+    console.log(callback_function);
+    callback_function.execute(param);
+  }
+}
+function addCallback(callback){
+  callbacks.push(callback);
+}
+
+/* Core functionality established on load */
 $(function(){
   function getBlock(block_id){
     return content_blocks.find(function(b){ return(b.id == block_id); });
@@ -8,8 +24,10 @@ $(function(){
 
   function renderBlock(block_id, area_id){
     var block = getBlock(block_id);
+    executeCallback('beforeRenderBlock', { block_id: block_id, area_id: area_id });
     area_id = area_id || block.content_area_id;
     $(".content-area[data-id='"+area_id+"']").html(block.content).data('content-block-id', block_id);
+    executeCallback('afterRenderBlock', { block_id: block_id, area_id: area_id });
   }
 
   function renderDefaultBlocks(){

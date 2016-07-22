@@ -14,8 +14,8 @@
 body {
   margin: 0;
   overflow: hidden;
-  width: 1280px;
-  height: 800px;
+  width: 3200px;
+  height: 1080px;
   background: #ffffff;
   color: #110b11;
   font-size: 18px;
@@ -46,3 +46,18 @@ img.big-right-image {
 
 /* Content area layout */
 
+.content-area.left-area-3x3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+}
+
+.content-area.right-area-2x3 {
+  position: absolute;
+  top: 0;
+  left: 1920px;
+  width: 1280px;
+  height: 1080px;
+}

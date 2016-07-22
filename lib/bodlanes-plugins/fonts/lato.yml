@@ -1,5 +1,5 @@
 ---
-description: Lato is a free font comparable to Gill Sans.
+description: "Lato is a free font comparable to Gill Sans: warm, stable, and serious."
 css: |
      @font-face {
        font-family: 'Lato';

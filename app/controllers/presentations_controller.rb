@@ -9,7 +9,7 @@ class PresentationsController < ApplicationController
   # GET /presentations
   # GET /presentations.json
   def index
-    @presentations = Presentation.all
+    @presentations = Presentation.order('updated_at DESC').all
   end
 
   # GET /presentations/1

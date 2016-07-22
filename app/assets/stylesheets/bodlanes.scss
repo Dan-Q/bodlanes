@@ -11,12 +11,6 @@ body {
   margin: 0;
 }
 
-p, ol, ul, td {
-  font-size: 13px;
-  line-height: 18px;
-  margin: 33px;
-}
-
 pre {
   background-color: #eee;
   padding: 10px;
@@ -91,14 +85,22 @@ label {
   display: block;
 }
 
+/* ***************************************************** */
+/* ***************************************************** */
+/* ***************************************************** */
+
 header {
   background: #ddd;
-  color: #0039a0;
   font-family: serif;
   background: url(/images/bodlanes.png) top left no-repeat;
   height: 88px;
   padding: 24px 15px 3px 115px;
   border-bottom: 4px solid #0039a0;
+
+  a, a:visited, a:hover {
+    text-decoration: none;
+    color: #0039a0;
+  }
 
   h1, h2 {
     margin: 0;
@@ -111,6 +113,31 @@ header {
   h2 {
     font-weight: normal;
     font-style: italic;
+  }
+}
+
+nav {
+  background: #0039a0;
+
+  ul {
+    margin: 0;
+    list-style: none;
+    display: flex;
+  }
+
+  a, a:visited {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 4px 15px;
+    font-size: 18px;
+    line-height: 24px;
+    margin: 0 8px;
+  }
+
+  a:hover {
+    background: white;
+    color: black;
   }
 }
 

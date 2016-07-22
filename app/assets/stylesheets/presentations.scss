@@ -1,6 +1,19 @@
-// Place all the styles related to the Presentations controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#presentations-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .presentation {
+    border: 6px solid #0039a0;
+    border-radius: 12px;
+    margin: 8px;
+    padding: 4px 8px;
+  }
+}
+
+iframe {
+  border: 1px solid gray;
+}
 
 #plugin-picker {
   li {

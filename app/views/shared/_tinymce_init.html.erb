@@ -1,4 +1,4 @@
-plugins: 'link image code table template',
+plugins: 'link image code table media',
 link_list: [
   <%= @linkable_content_blocks.map{|cb| "{ title: '#{cb.name}', value: '#{cb.id}' }" }.join(', ').html_safe %>
 ],
@@ -17,15 +17,12 @@ image_list: [
 image_class_list: [
   { title: 'None', value: '' },
   { title: 'Big Left Image', value: 'big-left-image' },
-  { title: 'Big Right Image', value: 'big-right-image' }
+  { title: 'Big Left Image', value: 'big-left-image' },
+  { title: 'Full Screen Image (stretch)', value: 'full-screen-image' },
+  { title: 'Full Screen Image (fill vertical)', value: 'full-height-image' },
+  { title: 'Full Screen Image (fill horizontal)', value: 'full-width-image' }
 ],
 image_description: false,
 image_prepend_url: '',
 relative_urls: false,
-/*templates: [
-  {
-    title: 'Gallery',
-    description: 'Gallery of zoomable images.',
-    content: '<div class="gallery"><figure class="image"><img src="//placekitten.com/100/100" width="100" height="100" /><figcaption>Gallery Item</figcaption></figure></div>'
-  }
-]*/
+

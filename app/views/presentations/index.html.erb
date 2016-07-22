@@ -1,29 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Presentations</h1>
+<p>
+  <%= link_to 'Create New Presentation', new_presentation_path %>
+</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Template</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @presentations.each do |presentation| %>
-      <tr>
-        <td><%= presentation.name %></td>
-        <td><%= presentation.template.try(:full_name) %></td>
-        <td><%= link_to 'Show', presentation %></td>
-        <td><%= link_to 'Edit', edit_presentation_path(presentation) %></td>
-        <td><%= link_to 'Destroy', presentation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Presentation', new_presentation_path %>
+<div id="presentations-list">
+  <% @presentations.each do |presentation| %>
+    <div class="presentation">
+      <iframe width="<%= presentation.template.screen_type.width / 2 %>" height="<%= presentation.template.screen_type.height / 2 %>" src="<%= preview_presentation_path(presentation) %>?zoom=0.25" style="zoom: 0.5;"></iframe>
+      <h2><%= presentation.name %></h2>
+      <ul class="stats">
+        <li><%= presentation.template.try(:full_name) %></li>
+        <li><%= pluralize(presentation.content_blocks.count, 'content block') %></li>
+        <li><%= pluralize(presentation.plugins_enabled.length, 'plugin') %> enabled</li>
+      </ul>
+      <ul class="actions">
+        <li><%= link_to 'Show', presentation %></li>
+        <li><%= link_to 'Edit', edit_presentation_path(presentation) %></li>
+        <li><%= link_to 'Destroy', presentation, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+      </ul>
+    </div>
+  <% end %>
+</div>

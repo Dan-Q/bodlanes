@@ -9,6 +9,7 @@ class ContentBlock < ApplicationRecord
 
   after_initialize :default_values_from_content_area
   after_save :set_as_default_if_alone
+  after_save :touch_presentation
 
   # Makes this the default content block for this presentation/area
   def make_default
@@ -26,6 +27,11 @@ class ContentBlock < ApplicationRecord
   # Makes this content block the default for its presentation/area, if no default already exists
   def set_as_default_if_alone
     make_default if !default? && presentation.content_blocks.where(content_area: content_area).where(default: true).none?
+  end
+
+  # Updates the updated_at of the parent presentation, when this is saved
+  def touch_presentation
+    presentation.touch
   end
 
   # Validates that the content area of this block belongs to the same template as the presentation

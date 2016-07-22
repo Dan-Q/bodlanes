@@ -10,11 +10,20 @@
 
   <body>
     <header>
-      <hgroup>
-        <h1>Bodlanes</h1>
-        <h2>Simplified digital signage</h2>
-      </hgroup>
+      <a href="/">
+        <hgroup>
+          <h1>Bodlanes</h1>
+          <h2>Simplified digital signage</h2>
+        </hgroup>
+      </a>
     </header>
+
+    <nav>
+      <ul>
+        <li><%= link_to "Presentations", presentations_path %></li>
+        <li><%= link_to "Templates", screen_types_path %></li>
+      </ul>
+    </nav>
 
     <main>
       <%= yield %>
