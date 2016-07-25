@@ -4,11 +4,9 @@ var content_blocks = JSON.parse($('#content-blocks-json').html());
 /* Callbacks (plugin engine) */
 var callbacks = [];
 function executeCallback(code, param){
-  console.log(code);
   for(var i = 0; i < callbacks.length; i++){
     var callback_function  = callbacks[i];
     if(callback_function.code != code) continue;
-    console.log(callback_function);
     callback_function.execute(param);
   }
 }
