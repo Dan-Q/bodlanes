@@ -12,7 +12,7 @@
       <ul class="stats">
         <li><%= presentation.template.try(:full_name) %></li>
         <li><%= pluralize(presentation.content_blocks.count, 'content block') %></li>
-        <li><%= pluralize(presentation.plugins_enabled.length, 'plugin') %> enabled</li>
+        <li><%= pluralize(presentation.plugins_enabled.split(',').length, 'plugin') %> enabled</li>
       </ul>
       <ul class="actions">
         <li><%= link_to 'Show', presentation %></li>

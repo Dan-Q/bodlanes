@@ -1,3 +1,6 @@
+<script type="text/json" id="linkable-content-areas-json"><%= raw @linkable_content_areas.to_json %></script>
+<script type="text/json" id="linkable-content-blocks-json"><%= raw @linkable_content_blocks.to_json %></script>
+
 <%= form_for([presentation, content_block]) do |f| %>
   <% if content_block.errors.any? %>
     <div id="error_explanation">
@@ -26,6 +29,11 @@
   <div class="field">
     <%= f.label :content %>
     <%= f.text_area :content %>
+  </div>
+
+  <div class="field timing-events">
+    <%= f.label :timings %>
+    <%= f.hidden_field :timings %>
   </div>
 
   <div class="actions">

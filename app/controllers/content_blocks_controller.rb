@@ -81,6 +81,6 @@ class ContentBlocksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def content_block_params
-      params.require(:content_block).permit(:content_area_id, :name, :content_type, :content, :default)
+      params.require(:content_block).permit(:content_area_id, :name, :content_type, :content, :default, :timings)
     end
 end

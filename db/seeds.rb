@@ -1,6 +1,6 @@
 # Screen types
 full_hd_monitor   = ScreenType.find_or_create_by(name: 'Full HD (Horizontal)', width: 1920, height: 1080, default_zoom: 0.9)
-full_hd_monitor_v = ScreenType.find_or_create_by(name: 'Full HD (Vertical)', width: 1920, height: 1080, default_zoom: 0.4)
+full_hd_monitor_v = ScreenType.find_or_create_by(name: 'Full HD (Vertical)', width: 1080, height: 1920, default_zoom: 0.4)
 samsung_tablet    = ScreenType.find_or_create_by(name: 'Samsung Tablet', width: 1280, height: 880, default_zoom: 0.9)
 ttl_kiosk         = ScreenType.find_or_create_by(name: 'TTL Kiosk', width: 1600, height: 1200, default_zoom: 0.7)
 heritage_window   = ScreenType.find_or_create_by(name: 'Heritage Window', width: 3200, height: 1080, default_zoom: 0.4)
