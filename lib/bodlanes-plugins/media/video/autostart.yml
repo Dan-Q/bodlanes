@@ -1,0 +1,6 @@
+---
+description: "Automatically starts playing the first &lt;video&gt; element on a content block, when it comes into view."
+js: |
+    addCallback({code: 'afterRenderBlock', execute: function(param){
+      if(video = $(".content-area[data-id='"+param['area_id']+"'] video:first")[0]) video.play();
+    }});
