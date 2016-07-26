@@ -24,8 +24,8 @@ heritage_32.content_areas.find_or_create_by(name: 'Right Area (2x3)', width: 128
 
 # Heritage Window: 1|4
 heritage_14       = heritage_window.templates.find_or_create_by(name: '1|4', code: 'heritage-14')
-heritage_14.content_areas.find_or_create_by(name: 'Left Column (1x3)', width: 640, height: 1080, content_type: 'wysiwyg')
-heritage_14.content_areas.find_or_create_by(name: 'Right Column (4x3)', width: 2560, height: 1080, content_type: 'wysiwyg')
+heritage_14.content_areas.find_or_create_by(name: 'Left Area (1x3)', width: 640, height: 1080, content_type: 'wysiwyg')
+heritage_14.content_areas.find_or_create_by(name: 'Right Area (4x3)', width: 2560, height: 1080, content_type: 'wysiwyg')
 
 # Samsung Tablet: Full Screen
 ss_tablet_fs      = samsung_tablet.templates.find_or_create_by(name: 'Full Screen', code: 'samsung-fullscreen')
