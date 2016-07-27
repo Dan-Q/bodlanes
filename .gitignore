@@ -46,3 +46,6 @@ bower.json
 
 # Ignore Bodlanes media uploads
 public/media/
+
+# Ignore the Glyphicons plugin because its license prohibits redistribution
+lib/bodlanes-plugins/fonts/glyphicons.yml
