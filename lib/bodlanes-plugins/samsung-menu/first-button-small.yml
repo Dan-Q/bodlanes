@@ -1,0 +1,6 @@
+---
+description: "First button in the Samsung Bottom Menu template's menu is much smaller."
+css: |
+     .content-area.menu-area ul li:first-child {
+       max-width: 4em;
+     }

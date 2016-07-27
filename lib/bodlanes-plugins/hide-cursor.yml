@@ -1,0 +1,4 @@
+---
+description: "Hide the cursor. Warning: you won't be able to see the cursor, dummy."
+css: |
+     * { cursor: none !important; }
