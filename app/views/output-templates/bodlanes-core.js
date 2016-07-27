@@ -78,7 +78,7 @@ $(function(){
   /* Sets up hooks to capture <a> clicks */
   function setUpHooks(){
     $('body').on('click', 'a', function(event){
-      var a = $(event.target);
+      var a = $(event.target).closest('a');
       var href = a.attr('href').match(/(\d+)$/);
       if(href){
         a.closest('.content-area').find('a').removeClass('last-clicked');
