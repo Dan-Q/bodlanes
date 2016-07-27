@@ -1,4 +1,7 @@
-plugins: 'link image code table media',
+plugins: 'link image code table media charmap',
+external_plugins: {
+  'glyphicons': '/assets/tinymce-plugins/glyphicons.js'
+},
 link_list: [
   <%= @linkable_content_blocks.map{|cb| "{ title: '#{cb.name}', value: '#{cb.id}' }" }.join(', ').html_safe %>
 ],
@@ -28,3 +31,5 @@ relative_urls: false,
 media_alt_source: false,
 media_dimensions: false,
 media_filter_html: false,
+verify_html: false,
+content_style: $('style.css-in-tinymce').map(function(){return($(this).html());}).toArray().join("\n"),

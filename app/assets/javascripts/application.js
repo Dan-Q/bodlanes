@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-tablesorter
-//= require_tree .
+//= require cable
+//= require_tree ./application

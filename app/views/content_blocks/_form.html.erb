@@ -1,6 +1,13 @@
 <script type="text/json" id="linkable-content-areas-json"><%= raw @linkable_content_areas.to_json %></script>
 <script type="text/json" id="linkable-content-blocks-json"><%= raw @linkable_content_blocks.to_json %></script>
 
+<% presentation.plugins.map{|p|YAML.load(File.open("#{Rails.root}/lib/bodlanes-plugins/#{p}.yml"))}.select{|p|p['css_in_tinymce']}.each do |plugin| %>
+  <% # TODO: refactor above %>
+  <style type="text/css" class="css-in-tinymce">
+    <%= raw plugin['css'] %>
+  </style>
+<% end %>
+
 <%= form_for([presentation, content_block]) do |f| %>
   <% if content_block.errors.any? %>
     <div id="error_explanation">
@@ -41,9 +48,11 @@
   </div>
 
   <script type="text/javascript">
-    tinymce.init({
-      selector: '#content_block_content',
-      <%= render 'shared/tinymce_init' %>
+    $(function(){
+      tinymce.init({
+        selector: '#content_block_content',
+        <%= render 'shared/tinymce_init' %>
+      });
     });
   </script>
 <% end %>
