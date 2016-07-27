@@ -68,6 +68,13 @@ img.full-width-image {
   height: auto;
 }
 
+/* Glyphicons in menus should centre better */
+
+.content-area.menu-area .glyphicons {
+  line-height: 94px;
+  font-size: 50px;
+}
+
 /* Content area layout */
 
 .content-area {
