@@ -25,7 +25,7 @@ class Presentation < ApplicationRecord
   def plugin_element(element)
     content = plugins.map do |plugin|
       if File::exists?(filename = "#{Rails.root}/lib/bodlanes-plugins/#{plugin}.yml")
-        YAML.load_file(filename)[element]
+        (YAML.load_file(filename) || {})[element]
       else
         "/* Plugin not found: #{plugin} */"
       end
