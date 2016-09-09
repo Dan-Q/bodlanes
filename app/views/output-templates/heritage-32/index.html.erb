@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title><%= @presentation.name %></title>
   <style>
+    <%= File::read("#{Rails.root}/app/views/output-templates/bodlanes-common.css").html_safe %>
     <%= File::read("#{Rails.root}/app/views/output-templates/heritage-32/heritage-32.css").html_safe %>
     <%= @presentation.plugin_css %>
     <%= @presentation.custom_css %>
