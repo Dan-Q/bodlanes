@@ -1,5 +1,5 @@
 ---
-description: "<div class=\"color-palette-example\"><div style=\"background: #447604\">&nbsp;</div><div style=\"background: #6cc551\">&nbsp;</div><div style=\"background: #e5fff6\">&nbsp;</div><div style=\"background: #52ad9c\">&nbsp;</div><div style=\"background: #47624f\">&nbsp;</div></div>"
+description: "<div class=\"color-palette-example unformatted\">#447604, #6cc551, #e5fff6, #52ad9c, #47624f</div>"
 css: |
      body {
        background: #e5fff6;

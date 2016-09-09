@@ -17,3 +17,9 @@ $ ->
     plugin_picker.find('input:checkbox').prop('checked', false)
     for already_enabled_plugin in $('#presentation_plugins_enabled').val().split(',')
       plugin_picker.find("input:checkbox[data-value='#{already_enabled_plugin}']").prop('checked', true)
+
+    # Automatically style "color scheme" plugins
+    $('.color-palette-example.unformatted').each ->
+      colors = $(this).text().split(/ *, */)
+      $(this).html("<div style=\"background: #{color}\">&nbsp;</div>" for color in colors)
+      $(this).removeClass 'unformatted'

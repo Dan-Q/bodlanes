@@ -6,4 +6,4 @@ $ ->
     session.setMode("ace/mode/#{$(this).data('code-lang')}")
     session.setUseSoftTabs(true)
     session.setTabSize(2)
-    session.setShowPrintMargin(false)
+    editor.setShowPrintMargin(false)
