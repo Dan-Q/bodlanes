@@ -104,4 +104,7 @@ $(function(){
   setUpTimerContainers();
   renderDefaultBlocks();
   setUpHooks();
+
+  /* If hash (anchor) provided, jump to specified content block */
+  if(window.location.hash != '') renderBlock(window.location.hash.substr(1));
 });

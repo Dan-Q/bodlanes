@@ -12,6 +12,7 @@ class ContentBlocksController < ApplicationController
   # GET /content_blocks/1
   # GET /content_blocks/1.json
   def show
+    redirect_to preview_presentation_path(@presentation, anchor: @content_block.id)
   end
 
   # GET /content_blocks/new
