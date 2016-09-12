@@ -24,6 +24,10 @@ a, a:focus, a:visited, a:visited {
   text-decoration: none;
 }
 
+#content-blocks-ready {
+  display: none;
+}
+
 /* WYSIWYG standard classes */
 
 img.big-left-image {

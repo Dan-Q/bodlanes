@@ -1,7 +1,7 @@
 <script type="text/json" id="linkable-content-areas-json"><%= raw @linkable_content_areas.to_json %></script>
 <script type="text/json" id="linkable-content-blocks-json"><%= raw @linkable_content_blocks.to_json %></script>
 
-<% presentation.plugins.map{|p|YAML.load(File.open("#{Rails.root}/lib/bodlanes-plugins/#{p}.yml"))}.select{|p|p['css_in_tinymce']}.each do |plugin| %>
+<% @plugins_yaml.select{|p|p['css_in_tinymce']}.each do |plugin| %>
   <% # TODO: refactor above %>
   <style type="text/css" class="css-in-tinymce">
     <%= raw plugin['css'] %>
@@ -43,15 +43,45 @@
     <%= f.hidden_field :timings %>
   </div>
 
+  <%= f.hidden_field :plugin_options %>
+  <div class="plugin-options">
+    <% @plugins_yaml.each do |plugin_yaml| %>
+      <%= raw plugin_yaml['form_html'] %>
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
 
   <script type="text/javascript">
     $(function(){
+      // WYSIWYG editor
       tinymce.init({
         selector: '#content_block_content',
         <%= render 'shared/tinymce_init' %>
+      });
+
+      // Plugin options - initial load
+      var text = $('#content_block_plugin_options').val();
+      if(text != ''){
+        var json = JSON.parse($('#content_block_plugin_options').val());
+        for(var i = 0; i < json.length; i++){
+          $(".plugin-options [name='"+json[i].name+"']").each(function(){
+            var t = $(this).attr('type');
+            if(t == 'checkbox' || t == 'radio'){
+              $(this).prop('checked', (json[i].value == '1'));
+            } else if (t == 'hidden') {
+              // leave alone
+            } else {
+              $(this).val(json[i].value);
+            }
+          })
+        }
+      }
+      // Plugin options - subsequent saves
+      $('.plugin-options').on('click change', 'input, textarea', function(){
+        $('#content_block_plugin_options').val(JSON.stringify($('.plugin-options input, .plugin-options textarea').serializeArray()));
       });
     });
   </script>

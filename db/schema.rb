@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725101629) do
+ActiveRecord::Schema.define(version: 20160912090924) do
 
   create_table "content_areas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "template_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20160725101629) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.text     "timings",         limit: 65535
+    t.text     "plugin_options",  limit: 65535
   end
 
   create_table "media_files", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

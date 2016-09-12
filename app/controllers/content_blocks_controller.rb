@@ -77,10 +77,11 @@ class ContentBlocksController < ApplicationController
       @linkable_content_areas = @presentation.template.content_areas
       @linkable_content_blocks = @presentation.content_blocks.where('id <> ?', params[:id] || -1)
       @linkable_images = @presentation.media_files.image
+      @plugins_yaml = @presentation.plugins.map{|p|YAML.load(File.open("#{Rails.root}/lib/bodlanes-plugins/#{p}.yml"))}
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def content_block_params
-      params.require(:content_block).permit(:content_area_id, :name, :content_type, :content, :default, :timings)
+      params.require(:content_block).permit(:content_area_id, :name, :content_type, :content, :default, :timings, :plugin_options)
     end
 end

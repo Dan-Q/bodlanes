@@ -19,6 +19,15 @@ var timers = {};
 
 /* Core functionality established on load */
 $(function(){
+  /* Pre-renders the content blocks into the DOM for quick hot-swapping later */
+  function setUpPrerenderedBlocks(){
+    $('body').append('<div id="content-blocks-ready" />');
+    var readyArea = $('#content-blocks-ready');
+    content_blocks.forEach(function(content_block){
+      readyArea.append('<div class="content-block-ready" data-id="'+content_block.id+'">'+content_block.content+'</div>')
+    });
+  }
+
   /* Sets up a timer containers for each content area */
   function setUpTimerContainers(){
     $('.content-area').each(function(){
@@ -59,7 +68,8 @@ $(function(){
     /* Clear any old timers */
     clearTimersFromArea(area_id);
     /* Render the content */
-    $(".content-area[data-id='"+area_id+"']").html(block.content).data('content-block-id', block_id);
+    var html = $(".content-block-ready[data-id='"+block_id+"']").clone(); /* Clone from the DOM preload rather than rendering from the JSON, for speed. */
+    $(".content-area[data-id='"+area_id+"']").html(html).data('content-block-id', block_id);
     /* Set up any timers */
     if(block.timings && block.timings != ""){
       var timings = JSON.parse(block.timings);
@@ -90,6 +100,7 @@ $(function(){
   }
 
   /* Launch the application */
+  setUpPrerenderedBlocks();
   setUpTimerContainers();
   renderDefaultBlocks();
   setUpHooks();

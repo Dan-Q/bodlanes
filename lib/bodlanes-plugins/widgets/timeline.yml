@@ -1,0 +1,33 @@
+---
+description: "Use &lt;ul class=\"timeline\"&gt;&lt;li&gt;&lt;div class=\"above\"&gt;...&lt;/div&gt;&lt;div class=\"below\"&gt;...&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt; to make a timeline."
+css: |
+      .timeline {
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .timeline li .above {
+        margin-bottom: 20px;
+        padding: 0px 40px;
+      }
+
+      .timeline li .below {
+        padding: 0px 40px;
+        border-top: 2px solid #D6DCE0;
+        position: relative;
+      }
+
+      .timeline li .below:before {
+        content: "";
+        width: 25px;
+        height: 25px;
+        background-color: white;
+        border-radius: 25px;
+        border: 1px solid #ddd;
+        position: absolute;
+        top: -15px;
+        left: 42%;
+      }
+
