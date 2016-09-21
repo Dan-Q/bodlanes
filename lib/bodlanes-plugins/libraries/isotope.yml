@@ -9,7 +9,7 @@ js: |
     addCallback({code: 'afterRenderBlock', execute: function(param){
       // extract relevant parameters
       var content_block = content_blocks.filter(function(cb){ return(cb.id == param.block_id); })[0];
-      if(!content_block) return;
+      if(!content_block || !content_block.plugin_options || (content_block.plugin_options == "")) return;
       var json = JSON.parse(content_block.plugin_options);
       if(!json) return;
       isotope_params = {};
