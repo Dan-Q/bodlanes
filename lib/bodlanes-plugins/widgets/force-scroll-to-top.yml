@@ -1,0 +1,4 @@
+---
+description: "Always stay scrolled to the top of the page, even if - for example - your timeline has a quirky bug and you have to deploy right now. Eww."
+js: |
+    $(window).scroll(function(){$(window).scrollTop(0);})
