@@ -3,12 +3,13 @@ description: "Use &lt;ul class=\"timeline\"&gt;&lt;li&gt;&lt;div class=\"above\"
 css: |
       .timeline {
         position: absolute;
-        top: 25%;
+        top: 25vh;
         left: 0;
+        margin: 0;
         list-style-type: none;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         padding: 0;
         overflow: auto;
       }
@@ -21,6 +22,9 @@ css: |
       .timeline li .above {
         margin-bottom: 20px;
         padding: 0px 40px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
       }
 
       .timeline li .below {

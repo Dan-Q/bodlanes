@@ -12,5 +12,5 @@ $ ->
     session.setTabSize(2)
     editor.setShowPrintMargin(false)
     session.on 'change', (e)->
-      console.log editor.getValue()
       hidden_field.val(editor.getValue())
+    hidden_field.val(editor.getValue())
