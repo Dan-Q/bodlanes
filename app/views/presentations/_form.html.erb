@@ -11,36 +11,58 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <div class="tabs">
+    <ul>
+      <li><a href="#meta">Meta</a></li>
+      <li><a href="#plugins">Plugins</a></li>
+      <li><a href="#css">CSS</a></li>
+      <% if !presentation.new_record? %>
+        <li><a href="#content">Content</a></li>
+        <li><a href="#media">Media</a></li>
+      <% end %>
+    </ul>
+
+    <div id="meta">
+      <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
+
+      <div class="field">
+        <%= f.label :template_id %>
+        <%= f.select :template_id, (presentation.new_record? ? @templates : [presentation.template]).map{|t| [t.full_name, t.id]} %>
+      </div>
+    </div>
+
+    <div id="plugins">
+      <script type="application/json" id="known-plugins-json">
+        <%= @known_plugins.to_json.html_safe %>
+      </script>
+      <div class="field">
+        <%= f.label :plugins_enabled %>
+        <%= f.text_field :plugins_enabled %>
+      </div>      
+    </div>
+
+    <div id="css">
+      <div class="field">
+        <%= f.label :custom_css %>
+        <%= f.text_area :custom_css, cols: 80, rows: 10, class: 'code-editor', data: { 'code-lang': 'css' } %>
+      </div>      
+    </div>
+
+    <% if !presentation.new_record? %>
+      <div id="content">
+        <%= render 'content_blocks', presentation: presentation %>
+      </div>
+      <div id="media">
+        <%= render 'media_files', presentation: presentation %>
+      </div>
+    <% end %>
   </div>
 
-  <div class="field">
-    <%= f.label :template_id %>
-    <%= f.select :template_id, (presentation.new_record? ? @templates : [presentation.template]).map{|t| [t.full_name, t.id]} %>
-  </div>
-
-  <script type="application/json" id="known-plugins-json">
-    <%= @known_plugins.to_json.html_safe %>
-  </script>
-  <div class="field">
-    <%= f.label :plugins_enabled %>
-    <%= f.text_field :plugins_enabled %>
-  </div>
-
-  <div class="field">
-    <%= f.label :custom_css %>
-    <%= f.text_area :custom_css, cols: 80, rows: 10, class: 'code-editor', data: { 'code-lang': 'css' } %>
-  </div>
-
-  <div class="actions">
+  <p class="actions">
     <%= f.submit %>
-  </div>
-
-  <% if !presentation.new_record? %>
-    <%= render 'content_blocks', presentation: presentation %>
-    <%= render 'media_files', presentation: presentation %>
-  <% end %>
+  </p>
 
 <% end %>

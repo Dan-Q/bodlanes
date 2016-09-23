@@ -34,19 +34,6 @@ pre {
   font-size: 11px;
 }
 
-a {
-  color: #000;
-
-  &:visited {
-    color: #666;
-  }
-
-  &:hover {
-    color: #fff;
-    background-color: #000;
-  }
-}
-
 th {
   padding-bottom: 5px;
 }
@@ -159,6 +146,8 @@ nav {
 }
 
 body.controller-presentationscontroller nav .nav-presentations a,
+body.controller-contentblockscontroller nav .nav-presentations a,
+body.controller-mediafilescontroller nav .nav-presentations a,
 body.controller-screentypescontroller nav .nav-templates a,
 body.controller-templatescontroller nav .nav-templates a,
 body.controller-devise-registrationscontroller nav .nav-my-account a {
