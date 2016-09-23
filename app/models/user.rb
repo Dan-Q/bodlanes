@@ -6,6 +6,5 @@ class User < ApplicationRecord
          :rememberable,
          :trackable,
          :timeoutable,
-         :validatable,
-         :lockable
+         :validatable
 end
