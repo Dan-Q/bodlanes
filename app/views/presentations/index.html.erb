@@ -15,9 +15,7 @@
         <li><%= pluralize(presentation.plugins_enabled.split(',').length, 'plugin') %> enabled</li>
       </ul>
       <ul class="actions">
-        <li><%= link_to 'Show', presentation %></li>
-        <li><%= link_to 'Edit', edit_presentation_path(presentation) %></li>
-        <li><%= link_to 'Destroy', presentation, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+        <%= render partial: 'actions', locals: { presentation: presentation } %>
       </ul>
     </div>
   <% end %>

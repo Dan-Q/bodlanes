@@ -1,11 +1,12 @@
 class TemplatesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_screen_type
   before_action :set_template, only: [:show, :edit, :update, :destroy]
 
   # GET /templates
   # GET /templates.json
   def index
-    @templates = Template.all
+    @templates = @screen_type.templates.all
   end
 
   # GET /templates/1
@@ -15,7 +16,7 @@ class TemplatesController < ApplicationController
 
   # GET /templates/new
   def new
-    @template = Template.new
+    @template = @screen_type.templates.new
   end
 
   # GET /templates/1/edit
@@ -25,7 +26,7 @@ class TemplatesController < ApplicationController
   # POST /templates
   # POST /templates.json
   def create
-    @template = Template.new(template_params)
+    @template = @screen_type.templates.new(template_params)
 
     respond_to do |format|
       if @template.save
@@ -64,8 +65,11 @@ class TemplatesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_screen_type
+      @screen_type = ScreenType.find(params[:screen_type_id])
+    end
     def set_template
-      @template = Template.find(params[:id])
+      @template = @screen_type.templates.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

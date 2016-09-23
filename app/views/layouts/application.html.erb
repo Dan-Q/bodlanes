@@ -8,7 +8,7 @@
     <%= javascript_include_tag 'application', '//cdn.tinymce.com/4/tinymce.min.js', '//cdn.jsdelivr.net/ace/1.2.4/min/ace.js' %>
   </head>
 
-  <body>
+  <body class="controller-<%= controller.class.name.parameterize %>">
     <header>
       <a href="/">
         <hgroup>
@@ -18,12 +18,16 @@
       </a>
     </header>
 
-    <nav>
-      <ul>
-        <li><%= link_to "Presentations", presentations_path %></li>
-        <li><%= link_to "Templates", screen_types_path %></li>
-      </ul>
-    </nav>
+    <% if user_signed_in? %>
+      <nav>
+        <ul>
+          <li class="nav-presentations"><%= link_to "Presentations", presentations_path %></li>
+          <li class="nav-templates"><%= link_to "Templates", screen_types_path %></li>
+          <li class="nav-my-account"><%= link_to "My Account", edit_user_registration_path %></li>
+          <li class="nav-log-out"><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+        </ul>
+      </nav>
+    <% end %>
 
     <% if notice %><p class="flash flash-notice"><%= notice %></p><% end %>
     <% if alert %><p class="flash flash-alert"><%= alert %></p><% end %>

@@ -1,0 +1,4 @@
+<li><%= link_to 'Edit', edit_presentation_path(presentation) %></li>
+<li><%= link_to 'Preview', preview_presentation_path(presentation) %></li>
+<li><%= link_to 'Inline Edit', preview_presentation_path(presentation, inline_edit: true) %></li>
+<li><%= link_to 'Destroy', presentation, method: :delete, data: { confirm: 'Are you sure?' } %></li>

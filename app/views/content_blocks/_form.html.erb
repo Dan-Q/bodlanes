@@ -35,7 +35,11 @@
 
   <div class="field">
     <%= f.label :content %>
-    <%= f.text_area :content %>
+    <% if content_block.content_type == 'raw' %>
+      <%= f.text_area :content, class: 'code-editor', data: { 'code-lang' => 'html' } %>
+    <% else %>
+      <%= f.text_area :content %>
+    <% end %>
   </div>
 
   <div class="field timing-events">
@@ -56,11 +60,15 @@
 
   <script type="text/javascript">
     $(function(){
-      // WYSIWYG editor
-      tinymce.init({
-        selector: '#content_block_content',
-        <%= render 'shared/tinymce_init' %>
-      });
+      var content_type = $('#content_block_content_type').val();
+
+      if(content_type == 'wysiwyg'){
+        // WYSIWYG editor
+        tinymce.init({
+          selector: '#content_block_content',
+          <%= render 'shared/tinymce_init' %>
+        });
+      }
 
       // Plugin options - initial load
       var text = $('#content_block_plugin_options').val();

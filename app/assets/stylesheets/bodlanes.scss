@@ -158,6 +158,14 @@ nav {
   }
 }
 
+body.controller-presentationscontroller nav .nav-presentations a,
+body.controller-screentypescontroller nav .nav-templates a,
+body.controller-templatescontroller nav .nav-templates a,
+body.controller-devise-registrationscontroller nav .nav-my-account a {
+  background: white;
+  color: black;
+}
+
 main {
   margin: 15px;
 }

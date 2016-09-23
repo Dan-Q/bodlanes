@@ -32,7 +32,7 @@ class ContentBlocksController < ApplicationController
 
     respond_to do |format|
       if @content_block.save
-        format.html { redirect_to edit_presentation_path(@presentation), notice: 'Content block was successfully created.' }
+        format.html { redirect_to edit_presentation_content_block_path(@presentation, @content_block), notice: 'Content block was successfully created.' }
         format.json { render :show, status: :created, location: [@presentation, @content_block] }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class ContentBlocksController < ApplicationController
   def update
     respond_to do |format|
       if @content_block.update(content_block_params)
-        format.html { redirect_to edit_presentation_path(@presentation), notice: 'Content block was successfully updated.' }
+        format.html { redirect_to edit_presentation_content_block_path(@presentation, @content_block), notice: 'Content block was successfully updated.' }
         format.json { render :show, status: :ok, location: [@presentation, @content_block] }
       else
         format.html { render :edit }
