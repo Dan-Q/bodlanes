@@ -2,6 +2,7 @@ require 'zlib'
 require 'rubygems/package'
 
 class PresentationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_presentation, only: [:show, :edit, :update, :destroy, :preview, :download]
   before_action :load_templates, except: [:index]
   before_action :load_known_plugins, only: [:edit, :update, :new, :create]

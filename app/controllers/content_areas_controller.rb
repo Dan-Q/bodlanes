@@ -1,4 +1,5 @@
 class ContentAreasController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_content_area, only: [:show, :edit, :update, :destroy]
 
   # GET /content_areas

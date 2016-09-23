@@ -1,4 +1,5 @@
 class MediaFilesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_presentation
   before_action :set_media_file, only: [:show, :edit, :update, :destroy]
 

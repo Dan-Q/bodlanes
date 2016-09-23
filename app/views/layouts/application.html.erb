@@ -25,6 +25,9 @@
       </ul>
     </nav>
 
+    <% if notice %><p class="flash flash-notice"><%= notice %></p><% end %>
+    <% if alert %><p class="flash flash-alert"><%= alert %></p><% end %>
+
     <main>
       <%= yield %>
     </main>

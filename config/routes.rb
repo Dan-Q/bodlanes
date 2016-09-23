@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+  
   resources :screen_types do
     resources :templates do
       resources :content_areas
@@ -12,5 +14,5 @@ Rails.application.routes.draw do
     get 'preview', 'download', on: :member
   end
 
-  get '/', to: redirect('/presentations')
+  root to: redirect('/presentations')
 end

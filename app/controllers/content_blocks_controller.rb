@@ -1,4 +1,5 @@
 class ContentBlocksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_presentation
   before_action :set_content_block, only: [:show, :edit, :update, :destroy]
   before_action :load_linkable_content, only: [:new, :edit, :create, :update]

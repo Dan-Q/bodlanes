@@ -11,6 +11,23 @@ body {
   margin: 0;
 }
 
+.flash {
+  margin: 15px;
+  padding: 9px 15px;
+  border: 2px solid black;
+  border-radius: 8px;
+}
+
+.flash-notice {
+  background: lightgreen;
+  border-color: darkgreen;
+}
+
+.flash-alert {
+  background: lightyellow;
+  border-color: orange;
+}
+
 pre {
   background-color: #eee;
   padding: 10px;

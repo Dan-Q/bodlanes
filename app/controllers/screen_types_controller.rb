@@ -1,4 +1,5 @@
 class ScreenTypesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_screen_type, only: [:show, :edit, :update, :destroy]
 
   # GET /screen_types

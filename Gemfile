@@ -35,6 +35,9 @@ gem 'jquery-tablesorter'
 # Paperclip for media storage
 gem "paperclip", "~> 5.0.0"
 
+# Devise for authentication
+gem 'devise'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
