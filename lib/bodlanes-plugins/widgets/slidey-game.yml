@@ -1,0 +1,32 @@
+---
+description: "Slide the pieces into place (under development)."
+content_types: { 'Slidey Game': 'slidey_game' }
+editor_js: |
+      // create slidey game editor
+      if($('#content_block_content_type').val() == 'slidey_game'){
+        $('#content_block_content').hide().after("<p>Put ID numbers of media files into each list in corresponding pairs. Don't leave an empty line at the end!</p><table id=\"slidey-game-configuration\"><thead><tr><th>Images 1</th><th>Images 2</th></tr></thead><tbody><tr><td><textarea id=\"slidey-game-list-1\" rows=\"12\" /></td><td><textarea id=\"slidey-game-list-2\" rows=\"12\" /></td></tr></tbody></table>");
+      }
+
+      // save editor changes
+      $('#slidey-game-configuration textarea').on('change keyup', function(){
+        var output = [];
+        $('#slidey-game-configuration textarea').each(function(){
+          output.push($(this).val().split("\n").map(function(e){return(parseInt(e))}));
+        });
+        var result = '<script id="slidey-game" language="application/json">' + JSON.stringify(output) + '</' + 'script>';
+        $('#content_block_content').val(result);
+      });
+
+      // load initial editor state
+      var input = $('#content_block_content').val().match(/\[.*\]/);
+      if(input.length > 0){
+        input = JSON.parse(input);
+        $('textarea#slidey-game-list-1').val(input[0].join("\n"));
+        $('textarea#slidey-game-list-2').val(input[1].join("\n"));
+      }
+
+      // $('#content_block_content').show(); // DEBUG
+css: |
+      // will go here
+js: |
+      // will go here

@@ -2,7 +2,8 @@ class ContentBlocksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_presentation
   before_action :set_content_block, only: [:show, :edit, :update, :destroy]
-  before_action :load_linkable_content, only: [:new, :edit, :create, :update]
+  before_action :load_linkable_content,
+                :set_content_types, only: [:new, :edit, :create, :update]
 
   # GET /content_blocks
   # GET /content_blocks.json
@@ -79,7 +80,15 @@ class ContentBlocksController < ApplicationController
       @linkable_content_areas = @presentation.template.content_areas
       @linkable_content_blocks = @presentation.content_blocks.where('id <> ?', params[:id] || -1)
       @linkable_images = @presentation.media_files.image
-      @plugins_yaml = @presentation.plugins.map{|p|YAML.load(File.open("#{Rails.root}/lib/bodlanes-plugins/#{p}.yml"))}
+      @plugins = @presentation.plugins.map{|p|{name: p, yaml: YAML.load(File.open("#{Rails.root}/lib/bodlanes-plugins/#{p}.yml"))}}
+    end
+
+    # Sets a variable with the allowable content types based on the core PLUS any plugins that add types
+    def set_content_types
+      @content_types = { 'WYSIWYG' => :wysiwyg, 'Raw HTML' => :raw }
+      @plugins.each do |plugin|
+        @content_types.merge! plugin[:yaml]['content_types'] || {}
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,10 +1,10 @@
 <script type="text/json" id="linkable-content-areas-json"><%= raw @linkable_content_areas.to_json %></script>
 <script type="text/json" id="linkable-content-blocks-json"><%= raw @linkable_content_blocks.to_json %></script>
 
-<% @plugins_yaml.select{|p|p['css_in_tinymce']}.each do |plugin| %>
+<% @plugins.select{|p|p['css_in_tinymce']}.each do |plugin| %>
   <% # TODO: refactor above %>
   <style type="text/css" class="css-in-tinymce">
-    <%= raw plugin['css'] %>
+    <%= raw plugin[:yaml]['css'] %>
   </style>
 <% end %>
 
@@ -30,7 +30,7 @@
 
   <div class="field">
     <%= f.label :content_type %>
-    <%= f.select :content_type, { 'WYSIWYG' => :wysiwyg, 'Raw HTML' => :raw } %>
+    <%= f.select :content_type, @content_types %>
   </div>
 
   <div class="field">
@@ -42,21 +42,30 @@
     <% end %>
   </div>
 
-  <div class="field timing-events">
-    <%= f.label :timings %>
-    <%= f.hidden_field :timings %>
-  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="#timing-events">Timings</a></li>
+      <% @plugins.reject{|plugin|plugin[:yaml]['form_html'].blank?}.each_with_index do |plugin, i| %>
+        <li><a href="#plugin-<%= i %>"><%= plugin[:name].split('/').last.humanize %></a></li>
+      <% end %>
+    </ul>
 
-  <%= f.hidden_field :plugin_options %>
-  <div class="plugin-options">
-    <% @plugins_yaml.each do |plugin_yaml| %>
-      <%= raw plugin_yaml['form_html'] %>
+    <div id="timing-events" class="field timing-events">
+      <%= f.label :timings %>
+      <%= f.hidden_field :timings %>
+    </div>
+
+    <%= f.hidden_field :plugin_options %>
+    <% @plugins.reject{|plugin|plugin[:yaml]['form_html'].blank?}.each_with_index do |plugin, i| %>
+      <div id="plugin-<%= i %>" class="plugin-options">
+        <%= raw plugin[:yaml]['form_html'] %>
+      </div>
     <% end %>
   </div>
 
-  <div class="actions">
+  <p class="actions">
     <%= f.submit %>
-  </div>
+  </p>
 
   <script type="text/javascript">
     $(function(){
@@ -70,6 +79,10 @@
         });
       }
 
+      // Plugin custom JS
+      <% @plugins.reject{|plugin|plugin[:yaml]['editor_js'].blank?}.each do |plugin| %>
+        <%= raw plugin[:yaml]['editor_js'] %>
+      <% end %>
       // Plugin options - initial load
       var text = $('#content_block_plugin_options').val();
       if(text != ''){
