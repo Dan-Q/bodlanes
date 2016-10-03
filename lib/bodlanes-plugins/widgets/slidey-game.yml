@@ -56,6 +56,31 @@ css: |
 
       #slidey-game-play-area #slidey-game-drop-spots li {
         border-style: dotted;
+        transition: border-color 1s;
+      }
+
+      #slidey-game-play-area #slidey-game-drop-spots li.dropped {
+        border-style: solid;
+      }
+
+      #slidey-game-play-area.complete #slidey-game-drop-spots li.dropped.correct {
+        border-color: #008604;
+      }
+
+      #slidey-game-play-area.complete #slidey-game-drop-spots li.dropped.incorrect {
+        border-color: #ad0d0d;
+      }
+
+      #slidey-game-result, #slidey-game-actions {
+        text-align: center;
+        font-size: 40px;
+        line-height: 60px;
+      }
+      #slidey-game-actions button {
+        font-size: 40px;
+        line-height: 60px;
+        width: 30vw;
+        border-radius: 8px;
       }
 js: |
       // Fisher-Yates shuffle
@@ -82,68 +107,92 @@ js: |
       }
 
       addCallback({code: 'afterRenderBlock', execute: function(param){
-        $('.content-block-ready:visible #slidey-game:not(.activated)').each(function(){
-          // extract relevant parameters
-          var content_block = content_blocks.filter(function(cb){ return(cb.id == param.block_id); })[0];
-          if(!content_block || !content_block.plugin_options || (content_block.plugin_options == "")) return;
-          var json = JSON.parse(content_block.plugin_options);
-          if(!json) return;
-          slidey_game_params = {};
-          json.forEach(function(e){
-            var matches = e.name.match(/^slidey-game\[(.+)\]$/)
-            if(matches) slidey_game_params[matches[1]] = e.value;
-          });
+        restart_slidey_game = function(){
+          $('.content-block-ready:visible #slidey-game').each(function(){
+            // extract relevant parameters
+            var content_block = content_blocks.filter(function(cb){ return(cb.id == param.block_id); })[0];
+            if(!content_block || !content_block.plugin_options || (content_block.plugin_options == "")) return;
+            var json = JSON.parse(content_block.plugin_options);
+            if(!json) return;
+            slidey_game_params = {};
+            json.forEach(function(e){
+              var matches = e.name.match(/^slidey-game\[(.+)\]$/)
+              if(matches) slidey_game_params[matches[1]] = e.value;
+            });
 
-          // Set up game, determine cards to use, etc.
-          var game = $(this);
-          var json = JSON.parse($(this).html());
-          var how_many = slidey_game_params['how-many'] || 4; // default number to show = 4
-          var num_cards = json[0].length;
-          var indexed_deck = Array.apply(null, {length: num_cards}).map(Number.call, Number); // for shuffling
-          var ordered_deck = shuffle(indexed_deck).slice(0, how_many);
-          var static_cards = [];
-          var mobile_cards = [];
-          for(var i of ordered_deck){
-            static_cards.push({ index: i, id: json[0][i], url: media_file_url(json[0][i]) });
-            mobile_cards.push({ index: i, id: json[1][i], url: media_file_url(json[1][i]) });
-          }
-          mobile_cards = shuffle(mobile_cards);
-
-          // Generate game play area
-          game.after('<div id="slidey-game-play-area"><ul id="slidey-game-static-cards"></ul><ul id="slidey-game-drop-spots"></ul><ul id="slidey-game-mobile-cards"></ul></div>');
-          var play_area = $('#slidey-game-play-area:visible');
-          for(var i = 0; i < how_many; i++){
-            var static_card = static_cards[i];
-            var mobile_card = mobile_cards[i];
-            play_area.find('#slidey-game-static-cards').append('<li><img src="' + static_card.url + '" /></li>');
-            play_area.find('#slidey-game-drop-spots').append('<li></li>');
-            play_area.find('#slidey-game-mobile-cards').append('<li><img src="' + mobile_card.url + '" /></li>');
-          }
-
-          // Game interactivity
-          play_area.find('#slidey-game-mobile-cards li').draggable({
-            revert: true,
-            revertDuration: 0,
-            helper: 'clone',
-            start: function(event, ui){
-              $(event.target).css('opacity', 0.25);
-            },
-            stop: function(event, ui){
-              $(event.target).css('opacity', 1);
+            // Set up game, determine cards to use, etc.
+            var game = $(this);
+            var json = JSON.parse($(this).html());
+            var how_many = slidey_game_params['how-many'] || 4; // default number to show = 4
+            var num_cards = json[0].length;
+            var indexed_deck = Array.apply(null, {length: num_cards}).map(Number.call, Number); // for shuffling
+            var ordered_deck = shuffle(indexed_deck).slice(0, how_many);
+            var static_cards = [];
+            var mobile_cards = [];
+            for(var i of ordered_deck){
+              static_cards.push({ index: i, id: json[0][i], url: media_file_url(json[0][i]) });
+              mobile_cards.push({ index: i, id: json[1][i], url: media_file_url(json[1][i]) });
             }
-          });
-          play_area.find('#slidey-game-drop-spots li').droppable({
-            drop: function(event, ui){
-              var drop_zone = $(event.target);
-              drop_zone.droppable('disable');
-              drop_zone.html(ui.helper.html());
-              setTimeout(function(){
-                ui.draggable.css('opacity', 0).draggable('disable');
-              }, 10);
-            }
-          });
+            mobile_cards = shuffle(mobile_cards);
 
-          game.addClass('activated'); // prevent duplicate activation
-        });
+            // Generate game play area
+            $('#slidey-game-play-area').remove();
+            game.after('<div id="slidey-game-play-area"><ul id="slidey-game-static-cards"></ul><ul id="slidey-game-drop-spots"></ul><ul id="slidey-game-mobile-cards"></ul><div id="slidey-game-result">&nbsp;</div><div id="slidey-game-actions"><button class="slidey-game-restart">Start over</button></div></div>');
+            var play_area = $('#slidey-game-play-area:visible');
+            for(var i = 0; i < how_many; i++){
+              var static_card = static_cards[i];
+              var mobile_card = mobile_cards[i];
+              play_area.find('#slidey-game-static-cards').append('<li><img src="' + static_card.url + '" /></li>');
+              play_area.find('#slidey-game-drop-spots').append('<li data-match="' + static_card.index + '"></li>');
+              play_area.find('#slidey-game-mobile-cards').append('<li><img src="' + mobile_card.url + '" data-match="' + mobile_card.index + '" /></li>');
+            }
+
+            // Game interactivity
+            play_area.find('#slidey-game-mobile-cards li').draggable({
+              revert: true,
+              revertDuration: 0,
+              helper: 'clone',
+              start: function(event, ui){
+                $(event.target).css('opacity', 0.25);
+              },
+              stop: function(event, ui){
+                $(event.target).css('opacity', 1);
+              }
+            });
+            play_area.find('#slidey-game-drop-spots li').droppable({
+              drop: function(event, ui){
+                var drop_zone = $(event.target);
+                drop_zone.droppable('disable').addClass('dropped');
+                drop_zone.html(ui.helper.html());
+                if(drop_zone.data('match') == drop_zone.find('img').data('match')){
+                  drop_zone.addClass('correct');
+                } else {
+                  drop_zone.addClass('incorrect');
+                }
+                setTimeout(function(){
+                  ui.draggable.css('opacity', 0).draggable('disable');
+                }, 10);
+                if(drop_zone.closest('ul').find('li:not(.dropped)').length == 0){
+                  complete_game();
+                }
+              }
+            });
+
+            // Complete game
+            complete_game = function(){
+              var play_area = $('#slidey-game-play-area:visible');
+              var score = play_area.find('#slidey-game-drop-spots li.correct').length;
+              var out_of = play_area.find('#slidey-game-drop-spots li').length;
+              play_area.addClass('complete');
+              play_area.find('#slidey-game-result').html('You scored ' + score + ' out of ' + out_of + '.');
+            }
+
+            // Restart game
+            $('.slidey-game-restart').click(function(){
+              restart_slidey_game();
+            });
+          });
+        };
+        restart_slidey_game();
       }});
 
