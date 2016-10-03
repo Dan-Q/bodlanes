@@ -2,6 +2,8 @@ require 'zlib'
 require 'rubygems/package'
 
 class PresentationsController < ApplicationController
+  include PresentationsHelper
+
   before_action :authenticate_user!
   before_action :set_presentation, only: [:show, :edit, :update, :destroy, :preview, :download]
   before_action :load_templates, except: [:index]
@@ -28,8 +30,10 @@ class PresentationsController < ApplicationController
   # GET /presentations/1/download
   def download
     csrf_meta_tags = ""
-    
-    html = ERB::new(File::read("#{Rails.root}/app/views/output-templates/#{@presentation.template.code}/index.html.erb")).result(binding)
+
+    require "#{Rails.root}/app/helpers/presentations_helper"
+    html = presentation_partial "output-templates/#{@presentation.template.code}/index.html.erb"
+
     tar = StringIO.new
     Gem::Package::TarWriter.new(tar) { |writer|
       writer.add_file("index.html", 0644){|f| f.write(html) }

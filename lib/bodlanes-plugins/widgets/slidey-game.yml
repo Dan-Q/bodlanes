@@ -20,7 +20,7 @@ editor_js: |
 
       // load initial editor state
       var input = $('#content_block_content').val().match(/\[.*\]/);
-      if(input.length > 0){
+      if(input && (input.length > 0)){
         input = JSON.parse(input);
         $('textarea#slidey-game-list-1').val(input[0].join("\n"));
         $('textarea#slidey-game-list-2').val(input[1].join("\n"));
@@ -77,7 +77,8 @@ js: |
 
       // Fetch a media file URL by ID
       function media_file_url(id){
-        return '/media/' + presentation.id + '/' + media_files.filter(function(m){ return(m.id == id);})[0].file_file_name;
+        var leading_slash = (bodlanes.action == 'download' ? '' : '/');
+        return leading_slash + 'media/' + presentation.id + '/' + media_files.filter(function(m){ return(m.id == id);})[0].file_file_name;
       }
 
       addCallback({code: 'afterRenderBlock', execute: function(param){
