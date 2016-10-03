@@ -1,5 +1,6 @@
 ---
-description: "Slide the pieces into place (under development)."
+description: "Slide the pieces into place (under development). <strong>Requires libraries/jquery-ui.</strong>"
+requires: 'libraries/jquery-ui'
 content_types: { 'Slidey Game': 'slidey_game' }
 editor_js: |
       // create slidey game editor
@@ -26,7 +27,122 @@ editor_js: |
       }
 
       // $('#content_block_content').show(); // DEBUG
+form_html: |
+            <div class="plugin-options plugin-options-slidey-game">
+              <h3>Slidey Game</h3>
+              <p class="field">
+                <label for="slidey-game-how-many">Show how many?</label>
+                <input type="number" min="1" id="slidey-game-how-many" name="slidey-game[how-many]" value="4" />
+              </p>
+            </div>
 css: |
-      // will go here
+      #slidey-game-play-area ul {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 25px 0;
+        justify-content: space-between;
+      }
+
+      #slidey-game-play-area ul li {
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        width: 300px;
+        height: 140px;
+        border: 4px solid #777;
+        border-radius: 8px;
+      }
+
+      #slidey-game-play-area #slidey-game-drop-spots li {
+        border-style: dotted;
+      }
 js: |
-      // will go here
+      // Fisher-Yates shuffle
+      function shuffle(array) {
+        let counter = array.length;
+        // While there are elements in the array
+        while (counter > 0) {
+          // Pick a random index
+          let index = Math.floor(Math.random() * counter);
+          // Decrease counter by 1
+          counter--;
+          // And swap the last element with it
+          let temp = array[counter];
+          array[counter] = array[index];
+          array[index] = temp;
+        }
+        return array;
+      }
+
+      // Fetch a media file URL by ID
+      function media_file_url(id){
+        return '/media/' + presentation.id + '/' + media_files.filter(function(m){ return(m.id == id);})[0].file_file_name;
+      }
+
+      addCallback({code: 'afterRenderBlock', execute: function(param){
+        $('.content-block-ready:visible #slidey-game:not(.activated)').each(function(){
+          // extract relevant parameters
+          var content_block = content_blocks.filter(function(cb){ return(cb.id == param.block_id); })[0];
+          if(!content_block || !content_block.plugin_options || (content_block.plugin_options == "")) return;
+          var json = JSON.parse(content_block.plugin_options);
+          if(!json) return;
+          slidey_game_params = {};
+          json.forEach(function(e){
+            var matches = e.name.match(/^slidey-game\[(.+)\]$/)
+            if(matches) slidey_game_params[matches[1]] = e.value;
+          });
+
+          // Set up game, determine cards to use, etc.
+          var game = $(this);
+          var json = JSON.parse($(this).html());
+          var how_many = slidey_game_params['how-many'] || 4; // default number to show = 4
+          var num_cards = json[0].length;
+          var indexed_deck = Array.apply(null, {length: num_cards}).map(Number.call, Number); // for shuffling
+          var ordered_deck = shuffle(indexed_deck).slice(0, how_many);
+          var static_cards = [];
+          var mobile_cards = [];
+          for(var i of ordered_deck){
+            static_cards.push({ index: i, id: json[0][i], url: media_file_url(json[0][i]) });
+            mobile_cards.push({ index: i, id: json[1][i], url: media_file_url(json[1][i]) });
+          }
+          mobile_cards = shuffle(mobile_cards);
+
+          // Generate game play area
+          game.after('<div id="slidey-game-play-area"><ul id="slidey-game-static-cards"></ul><ul id="slidey-game-drop-spots"></ul><ul id="slidey-game-mobile-cards"></ul></div>');
+          var play_area = $('#slidey-game-play-area:visible');
+          for(var i = 0; i < how_many; i++){
+            var static_card = static_cards[i];
+            var mobile_card = mobile_cards[i];
+            play_area.find('#slidey-game-static-cards').append('<li><img src="' + static_card.url + '" /></li>');
+            play_area.find('#slidey-game-drop-spots').append('<li></li>');
+            play_area.find('#slidey-game-mobile-cards').append('<li><img src="' + mobile_card.url + '" /></li>');
+          }
+
+          // Game interactivity
+          play_area.find('#slidey-game-mobile-cards li').draggable({
+            revert: true,
+            revertDuration: 0,
+            helper: 'clone',
+            start: function(event, ui){
+              $(event.target).css('opacity', 0.25);
+            },
+            stop: function(event, ui){
+              $(event.target).css('opacity', 1);
+            }
+          });
+          play_area.find('#slidey-game-drop-spots li').droppable({
+            drop: function(event, ui){
+              var drop_zone = $(event.target);
+              drop_zone.droppable('disable');
+              drop_zone.html(ui.helper.html());
+              setTimeout(function(){
+                ui.draggable.css('opacity', 0).draggable('disable');
+              }, 10);
+            }
+          });
+
+          game.addClass('activated'); // prevent duplicate activation
+        });
+      }});
+

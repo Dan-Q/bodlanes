@@ -23,7 +23,7 @@ class Presentation < ApplicationRecord
 
   private
   def plugin_element(element)
-    content = plugins.map do |plugin|
+    content = plugins.sort_by{|x| x =~ /^libraries\// ? 0 : 1 }.map do |plugin| # libraries get loaded first
       if File::exists?(filename = "#{Rails.root}/lib/bodlanes-plugins/#{plugin}.yml")
         (YAML.load_file(filename) || {})[element]
       else

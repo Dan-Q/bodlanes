@@ -17,16 +17,9 @@
     <div class="content-area <%= ca.name.parameterize %>" data-id="<%= ca.id %>" data-name="<%= ca.name %>"></div>
   <% end %>
 
-  <script type="application/json" id="presentation-json">
-    <%= @presentation.to_json.html_safe %>
-  </script>
-  <script type="application/json" id="content-blocks-json">
-    <%= ((params[:action] == 'download') ? @content_blocks.to_json.gsub(/(["'])\/media\//, "\\1media/") : @content_blocks.to_json).html_safe %>
-  </script>
-  <script src="/jquery-3.1.0.min.js"></script>
+  <%= render partial: 'output-templates/presentation-json' %>
   <script>
-    <%= File::read("#{Rails.root}/app/views/output-templates/jquery-3.1.0.min.js").html_safe %>
-    <%= File::read("#{Rails.root}/app/views/output-templates/bodlanes-core.js").html_safe %>
+    <%= render partial: 'output-templates/core-js' %>
     <%= @presentation.plugin_js %>
   </script>
 

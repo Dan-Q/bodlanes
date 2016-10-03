@@ -6,6 +6,7 @@ class PresentationsController < ApplicationController
   before_action :set_presentation, only: [:show, :edit, :update, :destroy, :preview, :download]
   before_action :load_templates, except: [:index]
   before_action :load_known_plugins, only: [:edit, :update, :new, :create]
+  before_action :load_template_and_content, only: [:preview, :download]
 
   # GET /presentations
   # GET /presentations.json
@@ -21,17 +22,11 @@ class PresentationsController < ApplicationController
   # GET /presentations/1/preview
   def preview
     load_linkable_content if params[:inline_edit]
-    @template = @presentation.template
-    @content_areas = @template.content_areas.all
-    @content_blocks = @presentation.content_blocks.all
     render layout: false
   end
 
   # GET /presentations/1/download
   def download
-    @template = @presentation.template
-    @content_areas = @template.content_areas.all
-    @content_blocks = @presentation.content_blocks.all
     csrf_meta_tags = ""
     
     html = ERB::new(File::read("#{Rails.root}/app/views/output-templates/#{@presentation.template.code}/index.html.erb")).result(binding)
@@ -122,6 +117,13 @@ class PresentationsController < ApplicationController
       @linkable_content_areas = @presentation.template.content_areas
       @linkable_content_blocks = @presentation.content_blocks.where('id <> ?', params[:id] || -1)
       @linkable_images = @presentation.media_files.image
+    end
+
+    def load_template_and_content
+      @template = @presentation.template
+      @content_areas = @template.content_areas.all
+      @content_blocks = @presentation.content_blocks.all
+      @media_files = @presentation.media_files.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

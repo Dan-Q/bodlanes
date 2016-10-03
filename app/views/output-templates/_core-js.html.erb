@@ -1,0 +1,4 @@
+<%= File::read("#{Rails.root}/app/views/output-templates/jquery-3.1.0.min.js").html_safe %>
+<%= File::read("#{Rails.root}/app/views/output-templates/jquery-ui-1.12.1.min.js").html_safe if @presentation.plugins.include?('libraries/jquery-ui') %>
+<%= File::read("#{Rails.root}/app/views/output-templates/jquery-ui-touch-punch-0.2.3.min.js").html_safe if @presentation.plugins.include?('libraries/jquery-ui-touch-punch') %>
+<%= File::read("#{Rails.root}/app/views/output-templates/bodlanes-core.js").html_safe %>

@@ -36,3 +36,7 @@ ss_tablet_bm      = samsung_tablet.templates.find_or_create_by(name: 'Bottom Men
 ss_tablet_bm.content_areas.find_or_create_by(name: 'Main Area', width: 1280, height: 700, content_type: 'wysiwyg')
 ss_tablet_bm.content_areas.find_or_create_by(name: 'Menu Area', width: 1280, height: 100, content_type: 'wysiwyg')
 
+# Some users
+User.create(email: 'dan.q@bodleian.ox.ac.uk', password: 'password12', password_confirmation: 'password12')
+User.create(email: 'jennifer.townshend@bodleian.ox.ac.uk', password: 'password12', password_confirmation: 'password12')
+User.create(email: 'elizabeth.mccarthy@bodleian.ox.ac.uk', password: 'password12', password_confirmation: 'password12')

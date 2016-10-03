@@ -1,0 +1,3 @@
+---
+description: "Makes jQuery-UI work on touch screens. <strong>Requires libraries/jquery-ui.</strong>"
+requires: 'libraries/jquery-ui'
