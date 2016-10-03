@@ -1,0 +1,9 @@
+<script type="application/json" id="presentation-json">
+  <%= @presentation.to_json.html_safe %>
+</script>
+<script type="application/json" id="content-blocks-json">
+  <%= ((params[:action] == 'download') ? @content_blocks.to_json.gsub(/(["'])\/media\//, "\\1media/") : @content_blocks.to_json).html_safe %>
+</script>
+<script type="application/json" id="media-files-json">
+  <%= @media_files.to_json.html_safe %>
+</script>
