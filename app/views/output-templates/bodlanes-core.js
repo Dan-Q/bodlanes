@@ -57,18 +57,24 @@ $(function(){
     }
   }
 
+  // Returns an array of all content blocks currently visible
+  function currentlyVisibleContentBlockIds(){
+    return $('.content-block-ready:visible').map(function(){return(parseInt($(this).data('id')));}).toArray();
+  }
+
   /* Triggered upon change of the URL hash */
   function hashChanged(){
-    console.log('hashChanged()');
+    //console.log('hashChanged()');
     if(window.ignoreHashChanges) return;
-    block_ids = window.location.hash.substr(1).split(',');
-    console.log('to ' + block_ids.join(','));
+    var already_visible_block_ids = currentlyVisibleContentBlockIds();
+    var block_ids = window.location.hash.substr(1).split(',').map(function(id){ return(parseInt(id)); }).filter(function(id){ return !already_visible_block_ids.includes(id); });
+    //console.log('to ' + block_ids.join(','));
     for(var i = 0; i < block_ids.length; i++) renderBlock(block_ids[i]);
   }
 
   /* Writes a hash to the URL with all the currently-visible content blocks, so refresh/back works */
   function writeHash(){
-    console.log('writeHash()');
+    //console.log('writeHash()');
     window.ignoreHashChanges = true;
     window.location.hash = $('.content-area').map(function(){return($(this).data('content-block-id'))}).toArray().join(',');
     window.ignoreHashChanges = false;
@@ -132,9 +138,9 @@ $(function(){
   renderDefaultBlocks();
   setUpHooks();
 
-  /* Monitor hash changes */
-  window.onhashchange = hashChanged;
-
   /* If hash (anchor) provided, jump to specified content block(s) after launch */
   for(var i = 0; i < preloads.length; i++) renderBlock(preloads[i]);
+
+  /* Monitor subsequent hash changes */
+  window.onhashchange = hashChanged;
 });
