@@ -1,1 +1,20 @@
-/home/dan/ndrive/english-garden.yml
+---
+description: "<div class=\"color-palette-example unformatted\">#6F7D62, #D7C6A8, #FFFFFF, #5A4B33, #72786B</div>"
+css: |
+     body {
+       background: #ffffff;
+       color: #5a4b33;
+     }
+     a, a:focus, a:visited, a:visited {
+       color: #72786B;
+     }
+     .content-area.menu-area {
+       background-color: #6F7D62;
+     }
+     .content-area.menu-area a {
+       color: #FFFFFF;
+     }
+     .content-area.menu-area a.last-clicked {
+       background: #FFFFFF;
+       color: #6F7D62;
+     }
