@@ -30,8 +30,7 @@ class PresentationsController < ApplicationController
   # GET /presentations/1/download
   def download
     csrf_meta_tags = ""
-
-    require "#{Rails.root}/app/helpers/presentations_helper"
+    
     html = presentation_partial "output-templates/#{@presentation.template.code}/index.html.erb"
 
     tar = StringIO.new
