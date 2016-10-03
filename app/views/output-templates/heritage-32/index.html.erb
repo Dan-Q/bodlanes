@@ -10,7 +10,7 @@
     <%= @presentation.plugin_css %>
     <%= @presentation.custom_css %>
   </style>
-  <%= csrf_meta_tags %>
+  <%= csrf_meta_tags if params[:inline_edit] %>
 </head>
 <body style="zoom: <%= params[:zoom] || 1 %>">
   <% @content_areas.each do |ca| %>

@@ -1,3 +1,4 @@
+var bodlanes = JSON.parse($('#bodlanes-json').html());
 var presentation = JSON.parse($('#presentation-json').html());
 var content_blocks = JSON.parse($('#content-blocks-json').html());
 var media_files = JSON.parse($('#media-files-json').html());

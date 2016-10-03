@@ -101,9 +101,9 @@
         }
       }
       // Plugin options - subsequent saves
-      $('.plugin-options').on('click change', 'input, textarea', function(){
-        $('#content_block_plugin_options').val(JSON.stringify($('.plugin-options input, .plugin-options textarea').serializeArray()));
-      });
+      save_content_block_plugin_options = function(){ $('#content_block_plugin_options').val(JSON.stringify($('.plugin-options input, .plugin-options textarea').serializeArray())); }
+      $('.plugin-options').on('click change', 'input, textarea', save_content_block_plugin_options);
+      save_content_block_plugin_options(); // save on load to establish any default values for current plugins
     });
   </script>
 <% end %>

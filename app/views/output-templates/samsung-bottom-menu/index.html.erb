@@ -10,16 +10,16 @@
     <%= @presentation.plugin_css %>
     <%= @presentation.custom_css %>
   </style>
-  <%= csrf_meta_tags %>
+  <%= csrf_meta_tags if params[:inline_edit] %>
 </head>
 <body style="zoom: <%= params[:zoom] || 1 %>">
   <% @content_areas.each do |ca| %>
     <div class="content-area <%= ca.name.parameterize %>" data-id="<%= ca.id %>" data-name="<%= ca.name %>"></div>
   <% end %>
 
-  <%= render partial: 'output-templates/presentation-json' %>
+  <%= presentation_partial 'output-templates/_presentation-json.html.erb' %>
   <script>
-    <%= render partial: 'output-templates/core-js' %>
+    <%= presentation_partial 'output-templates/_core-js.html.erb' %>
     $(function(){
       $('.content-area.menu-area a:first').click();
     })
