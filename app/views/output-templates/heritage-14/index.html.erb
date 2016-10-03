@@ -17,9 +17,9 @@
     <div class="content-area <%= ca.name.parameterize %>" data-id="<%= ca.id %>" data-name="<%= ca.name %>"></div>
   <% end %>
 
-  <%= render partial: 'output-templates/presentation-json' %>
+  <%= presentation_partial 'output-templates/presentation-json' %>
   <script>
-    <%= render partial: 'output-templates/core-js' %>
+    <%= presentation_partial 'output-templates/core-js' %>
     <%= @presentation.plugin_js %>
   </script>
 
