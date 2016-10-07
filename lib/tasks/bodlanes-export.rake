@@ -11,7 +11,7 @@ namespace :bodlanes do
         STDOUT.print "Exporting '#{p.name}' to #{out}"
         `rm -rf #{out}` if File.exists?(out)
         `mkdir -p #{out}/media/#{pid}`
-        app.get("/presentations/#{pid}/preview")
+        app.get("/presentations/#{pid}/preview?for=download")
         File.write("#{out}/index.html", app.response.body.gsub('/media/', 'media/'))
         STDOUT.print '.'
         p.media_files.each do |m|

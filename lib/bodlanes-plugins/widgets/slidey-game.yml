@@ -85,6 +85,7 @@ css: |
 js: |
       // Fisher-Yates shuffle
       function shuffle(array) {
+        "use strict";
         let counter = array.length;
         // While there are elements in the array
         while (counter > 0) {
@@ -102,7 +103,7 @@ js: |
 
       // Fetch a media file URL by ID
       function media_file_url(id){
-        var leading_slash = (bodlanes.action == 'download' ? '' : '/');
+        var leading_slash = (bodlanes.for == 'download' ? '' : '/');
         return leading_slash + 'media/' + presentation.id + '/' + media_files.filter(function(m){ return(m.id == id);})[0].file_file_name;
       }
 

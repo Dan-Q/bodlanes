@@ -4,7 +4,7 @@ require 'rubygems/package'
 class PresentationsController < ApplicationController
   include PresentationsHelper
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:preview]
   before_action :set_presentation, only: [:show, :edit, :update, :destroy, :preview, :download]
   before_action :load_templates, except: [:index]
   before_action :load_known_plugins, only: [:edit, :update, :new, :create]
@@ -29,6 +29,7 @@ class PresentationsController < ApplicationController
 
   # GET /presentations/1/download
   def download
+    params[:for] = 'download'
     csrf_meta_tags = ""
     
     html = presentation_partial "output-templates/#{@presentation.template.code}/index.html.erb"
