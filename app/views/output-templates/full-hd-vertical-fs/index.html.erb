@@ -7,8 +7,8 @@
   <style>
     <%= File::read("#{Rails.root}/app/views/output-templates/bodlanes-common.css").html_safe %>
     <%= File::read("#{Rails.root}/app/views/output-templates/full-hd-vertical-fs/full-hd-vertical-fs.css").html_safe %>
-    <%= @presentation.plugin_css %>
-    <%= @presentation.custom_css %>
+    <%= @presentation.plugin_css.html_safe %>
+    <%= @presentation.custom_css.html_safe %>
   </style>
   <%= csrf_meta_tags if params[:inline_edit] %>
 </head>

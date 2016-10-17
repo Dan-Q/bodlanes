@@ -14,8 +14,8 @@ js: |
       if(!json) return;
       isotope_params = {};
       json.forEach(function(e){
-        var matches = e.name.match(/^isotope\[(.+)\]$/)
-        if(matches) isotope_params[matches[1]] = e.value;
+        var matches = e.name.match(/^isotope\[(.+)\]$/);
+        // if(matches) isotope_params[matches[1]] = e.value;
       });
 
       // Isotope injection
@@ -36,8 +36,10 @@ form_html: |
               <h3>Isotope</h3>
               <p class="field">
                 <label for="isotope-enabled">Enabled?</label>
-                <input type="hidden" name="isotope[enabled]" value="0" />
-                <input type="checkbox" id="isotope-enabled" name="isotope[enabled]" value="1" />
+                <select id="isotope-enabled" name="isotope[enabled]">
+                  <option value="0">No</option>
+                  <option value="1">Yes</option>
+                </select>
               </p>
               <p class="field">
                 <label for="isotope-root-class">Root class (CSS class of container)</label>

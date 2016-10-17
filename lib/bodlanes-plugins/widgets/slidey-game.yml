@@ -19,7 +19,7 @@ editor_js: |
       });
 
       // load initial editor state
-      var input = $('#content_block_content').val().match(/\[.*\]/);
+      var input = ($('#content_block_content').val() || '').match(/\[.*\]/);
       if(input && (input.length > 0)){
         input = JSON.parse(input);
         $('textarea#slidey-game-list-1').val(input[0].join("\n"));
@@ -33,6 +33,21 @@ form_html: |
               <p class="field">
                 <label for="slidey-game-how-many">Show how many?</label>
                 <input type="number" min="1" id="slidey-game-how-many" name="slidey-game[how-many]" value="4" />
+              </p>
+              <p class="field">
+                <label for="slidey-game-text1">HTML above static cards:</label>
+                <textarea id="slidey-game-text1" name="slidey-game[text1]"></textarea>
+              </p>
+              <p class="field">
+                <label for="slidey-game-text2">HTML below draggable cards:</label>
+                <textarea id="slidey-game-text2" name="slidey-game[text2]"></textarea>
+              </p>
+              <p class="field">
+                <label for="slidey-game-hide-mobile-card-row-on-completion">Hide 'drag cards from here' row when game complete?</label>
+                <select id="slidey-game-hide-mobile-card-row-on-completion" name="slidey-game[hide-mobile-card-row-on-completion]">
+                  <option value="false">No</option>
+                  <option value="true">Yes</option>
+                </select>
               </p>
             </div>
 css: |
@@ -138,7 +153,7 @@ js: |
 
             // Generate game play area
             $('#slidey-game-play-area').remove();
-            game.after('<div id="slidey-game-play-area"><ul id="slidey-game-static-cards"></ul><ul id="slidey-game-drop-spots"></ul><ul id="slidey-game-mobile-cards"></ul><div id="slidey-game-result">&nbsp;</div><div id="slidey-game-actions"><button class="slidey-game-restart">Start over</button></div></div>');
+            game.after('<div id="slidey-game-play-area"><div id="slidey-game-text1"></div><ul id="slidey-game-static-cards"></ul><ul id="slidey-game-drop-spots"></ul><ul id="slidey-game-mobile-cards"></ul><div id="slidey-game-text2"></div><div id="slidey-game-result">&nbsp;</div><div id="slidey-game-actions"><button class="slidey-game-restart">Start over</button></div></div>');
             var play_area = $('#slidey-game-play-area:visible');
             for(var i = 0; i < how_many; i++){
               var static_card = static_cards[i];
@@ -147,6 +162,10 @@ js: |
               play_area.find('#slidey-game-drop-spots').append('<li data-match="' + static_card.index + '"></li>');
               play_area.find('#slidey-game-mobile-cards').append('<li><img src="' + mobile_card.url + '" data-match="' + mobile_card.index + '" /></li>');
             }
+
+            // Add static text/HTML
+            $('#slidey-game-text1').html(slidey_game_params['text1'] || '');
+            $('#slidey-game-text2').html(slidey_game_params['text2'] || '');
 
             // Game interactivity
             play_area.find('#slidey-game-mobile-cards li').draggable({
@@ -185,7 +204,10 @@ js: |
               var score = play_area.find('#slidey-game-drop-spots li.correct').length;
               var out_of = play_area.find('#slidey-game-drop-spots li').length;
               play_area.addClass('complete');
-              play_area.find('#slidey-game-result').html('You scored ' + score + ' out of ' + out_of + '.');
+              play_area.find('#slidey-game-result').html('You scored ' + score + ' out of ' + out_of);
+              if(slidey_game_params['hide-mobile-card-row-on-completion'] == 'true'){
+                $('#slidey-game-mobile-cards').hide();
+              }
             }
 
             // Restart game
