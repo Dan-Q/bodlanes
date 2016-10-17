@@ -1,4 +1,5 @@
-<h1>Editing Media File</h1>
+<h1><%= link_to @presentation.name, @presentation %></h1>
+<h2>Media file #<%= @media_file.id %></h2>
 
 <%= render 'form', presentation: @presentation, media_file: @media_file %>
 

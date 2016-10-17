@@ -1,9 +1,5 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Presentation:</strong>
-  <%= @media_file.presentation.name %>
-</p>
+<h1><%= link_to @presentation.name, @presentation %></h1>
+<h2>Media file #<%= @media_file.id %></h2>
 
 <% if @media_file.image? %>
   <p>

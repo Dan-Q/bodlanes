@@ -19,6 +19,7 @@
       <% if !presentation.new_record? %>
         <li><a href="#content">Content</a></li>
         <li><a href="#media">Media</a></li>
+        <li><a href="#preview">Preview</a></li>
       <% end %>
     </ul>
 
@@ -57,6 +58,14 @@
       </div>
       <div id="media">
         <%= render 'media_files', presentation: presentation %>
+      </div>
+      <div id="preview">
+        <p>
+          <%= link_to 'Open in new window', preview_presentation_path(presentation, target: '_blank') %>
+          |
+          <%= link_to 'Inline Edit', preview_presentation_path(presentation, inline_edit: true) %>
+        </p>
+        <iframe width="<%= @presentation.template.screen_type.width / 2 %>" height="<%= @presentation.template.screen_type.height / 2 %>" src="<%= preview_presentation_path(@presentation) %>?zoom=<%= @presentation.template.screen_type.default_zoom.to_f / 2 %>" style="zoom: <%= @presentation.template.screen_type.default_zoom %>;"></iframe>
       </div>
     <% end %>
   </div>

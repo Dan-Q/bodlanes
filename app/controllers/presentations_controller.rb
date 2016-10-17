@@ -19,6 +19,7 @@ class PresentationsController < ApplicationController
   # GET /presentations/1
   # GET /presentations/1.json
   def show
+    redirect_to edit_presentation_path(@presentation)
   end
 
   # GET /presentations/1/preview

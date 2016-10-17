@@ -1,4 +1,5 @@
-<h1>New Content Block</h1>
+<h1><%= link_to @presentation.name, @presentation %></h1>
+<h2>New content block</h2>
 
 <%= render 'form', presentation: @presentation, content_block: @content_block %>
 
