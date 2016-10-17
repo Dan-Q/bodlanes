@@ -61,7 +61,7 @@
       </div>
       <div id="preview">
         <p>
-          <%= link_to 'Open in new window', preview_presentation_path(presentation, target: '_blank') %>
+          <%= link_to 'Open in new window', preview_presentation_path(presentation), target: '_blank' %>
           |
           <%= link_to 'Inline Edit', preview_presentation_path(presentation, inline_edit: true) %>
         </p>
