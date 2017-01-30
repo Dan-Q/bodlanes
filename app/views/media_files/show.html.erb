@@ -1,4 +1,11 @@
 <h1><%= link_to @presentation.name, @presentation %></h1>
+
+<ul class="breadcrumbs">
+  <li><%= link_to @presentation.name, @presentation %></li>
+  <li><%= link_to 'Media', edit_presentation_path(@presentation, anchor: 'tab:media') %></li>
+  <li><%= link_to "Media file ##{@media_file.id}", presentation_media_file_path(@presentation, @media_file) %></li>
+</ul>
+
 <h2>Media file #<%= @media_file.id %></h2>
 
 <% if @media_file.image? %>

@@ -1,0 +1,10 @@
+---
+description: "Centers full-height images."
+js: |
+    addCallback({code: 'afterRenderBlock', execute: function(param){
+      setTimeout(function(){      
+        $('.full-height-image:visible').each(function(){
+          $(this).css('left', (1280 - $(this).width()) / 2);
+        });
+      }, 30);
+    }});

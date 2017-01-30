@@ -1,3 +1,21 @@
+.breadcrumbs {
+  list-style: none;
+  display: flex;
+  padding-left: 0;
+
+  li {
+    padding-right: 0.4em;
+
+    &:before {
+      content: "→ ";
+    }
+
+    &:first-child:before {
+      content: "";
+    }
+  }
+}
+
 #presentations-list {
   display: flex;
   flex-wrap: wrap;

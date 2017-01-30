@@ -1,4 +1,20 @@
 $ ->
+  if $('form.edit_presentation').length == 1
+    updateBreadcrumbsFromTabs = ->
+      currentTab = $('.tabs .ui-state-active:first')
+      $('.breadcrumb-tab-current').attr 'href', currentTab.find('a').attr 'href'
+      $('.breadcrumb-tab-current').text currentTab.text()
+
+    # Set up tabs as 'linkable'
+    $('form.edit_presentation .tabs').tabs
+      activate: (e, ui)->
+        window.location.hash = "tab:#{ui.newTab.find('a').attr('href').substr(1)}"
+    # Select previously-selected tab, based on hash
+    if (matches = window.location.hash.match(/^#?tab:(.*)$/))
+      $("form.edit_presentation .tabs a[href='##{matches[1]}']").trigger 'click'
+    else
+      window.location.hash = "tab:#{$('form.edit_presentation .tabs .ui-tabs-anchor:first').attr('href').substr(1)}"
+
   if $('#presentation_plugins_enabled').length == 1
     # Set up plugin checkboxes
     $('#presentation_plugins_enabled').hide()

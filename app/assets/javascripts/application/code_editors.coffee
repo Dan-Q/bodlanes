@@ -1,6 +1,7 @@
 # Makes ACE Code Editor work
 $ ->
-  $('.code-editor').each ->
+  $('.code-editor:not(.code-editor-enabled)').each ->
+    $(this).addClass('code-editor-enabled')
     name = $(this).attr('name')
     id = $(this).attr('id')
     $(this).after "<input type=\"hidden\" name=\"#{name}\" id=\"#{id}-hidden\">"

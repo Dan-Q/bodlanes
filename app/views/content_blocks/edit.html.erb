@@ -1,4 +1,11 @@
 <h1><%= link_to @presentation.name, @presentation %></h1>
+
+<ul class="breadcrumbs">
+  <li><%= link_to @presentation.name, @presentation %></li>
+  <li><%= link_to 'Content', edit_presentation_path(@presentation, anchor: 'tab:content') %></li>
+  <li><%= link_to "Content block ##{@content_block.id}", edit_presentation_content_block_path(@presentation, @content_block) %></li>
+</ul>
+
 <h2>Content block #<%= @content_block.id %></h2>
 
 <%= render 'form', presentation: @presentation, content_block: @content_block %>
