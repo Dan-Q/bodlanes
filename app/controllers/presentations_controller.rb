@@ -111,8 +111,12 @@ class PresentationsController < ApplicationController
     def load_known_plugins
       old_dir = Dir::pwd
       Dir.chdir("#{Rails.root}/lib/bodlanes-plugins");
-      @known_plugins = Dir.glob('**/**.yml').map{|p|p.gsub(/\.yml$/, '')}.sort.map do |p|
-        { name: p, description: (YAML.load_file("#{Rails.root}/lib/bodlanes-plugins/#{p}.yml") || {})['description'] }
+      @known_plugins = Dir.glob('**/**.{yml,plugin}').map{|p|p.gsub(/\.(yml|plugin)$/, '')}.sort.map do |p|
+        if File.directory?(dir = "#{Rails.root}/lib/bodlanes-plugins/#{p}.plugin")
+          { name: p, description: (File.exists?(descfile = "#{dir}/description.txt") ? File.read(descfile).strip : '') }
+        else
+          { name: p, description: (YAML.load_file("#{Rails.root}/lib/bodlanes-plugins/#{p}.yml") || {})['description'] }
+        end
       end
       Dir::chdir(old_dir)
     end

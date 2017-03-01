@@ -22,13 +22,14 @@ class Presentation < ApplicationRecord
   end
 
   private
+  # Returns all of the plugin objects, preloaded as required
+  def plugin_objects
+    @plugin_objects ||= plugins.sort_by{|x| x =~ /^libraries\// ? 0 : 1 }.map{|p| Plugin.new(p) }
+  end
+
   def plugin_element(element)
-    content = plugins.sort_by{|x| x =~ /^libraries\// ? 0 : 1 }.map do |plugin| # libraries get loaded first
-      if File::exists?(filename = "#{Rails.root}/lib/bodlanes-plugins/#{plugin}.yml")
-        (YAML.load_file(filename) || {})[element]
-      else
-        "/* Plugin not found: #{plugin} */"
-      end
+    content = plugin_objects.map do |plugin| # libraries get loaded first
+      plugin.data[:yaml][element]
     end
     content.join("\n").html_safe
   end

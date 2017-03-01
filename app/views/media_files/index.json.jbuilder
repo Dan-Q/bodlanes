@@ -1,4 +1,3 @@
 json.array!(@media_files) do |media_file|
-  json.extract! media_file, :id, :presentation_id, :file
-  json.url media_file_url(media_file, format: :json)
+  json.extract! media_file, :id, :presentation_id, :file_file_name, :file_content_type, :file
 end

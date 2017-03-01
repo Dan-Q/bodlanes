@@ -1,5 +1,6 @@
 <script type="text/json" id="linkable-content-areas-json"><%= raw @linkable_content_areas.to_json %></script>
 <script type="text/json" id="linkable-content-blocks-json"><%= raw @linkable_content_blocks.to_json %></script>
+<script type="text/json" id="original-content-block-plugin-options"><%= raw content_block.plugin_options %></script>
 
 <% @plugins.select{|p|p['css_in_tinymce']}.each do |plugin| %>
   <% # TODO: refactor above %>
@@ -8,7 +9,7 @@
   </style>
 <% end %>
 
-<%= form_for([presentation, content_block]) do |f| %>
+<%= form_for([presentation, content_block], data: { id: content_block.id, presentation_id: presentation.id }) do |f| %>
   <% if content_block.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(content_block.errors.count, "error") %> prohibited this content_block from being saved:</h2>

@@ -6,7 +6,7 @@ class MediaFilesController < ApplicationController
   # GET /media_files
   # GET /media_files.json
   def index
-    @media_files = @presentation.media_files.all
+    @media_files = @presentation.media_files.order('file_file_name ASC').all
   end
 
   # GET /media_files/1
