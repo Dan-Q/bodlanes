@@ -19,5 +19,6 @@
   <%= link_to @media_file.file.url, @media_file.file.url %>
 </p>
 
+<%= link_to 'Delete', presentation_media_file_path(@presentation, @media_file), method: :delete %> |
 <%= link_to 'Edit', edit_presentation_media_file_path(@presentation, @media_file) %> |
 <%= link_to 'Back', edit_presentation_path(@presentation, anchor: 'media') %>

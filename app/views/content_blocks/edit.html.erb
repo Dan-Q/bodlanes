@@ -10,5 +10,6 @@
 
 <%= render 'form', presentation: @presentation, content_block: @content_block %>
 
+<%= link_to 'Delete', presentation_content_block_path(@presentation, @content_block), method: :delete %> |
 <%= link_to 'Show', [@presentation, @content_block] %> |
 <%= link_to 'Back', presentation_content_blocks_path(@presentation, anchor: 'content') %>
