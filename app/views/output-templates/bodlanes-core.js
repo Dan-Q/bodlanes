@@ -117,11 +117,11 @@ $(function(){
 
   /* Sets up hooks to capture <a> clicks */
   function setUpHooks(){
-    $('body').on('click', 'a', function(event){
-      var a = $(event.target).closest('a');
+    $('body').on('click', 'a, area', function(event){
+      var a = $(event.target).closest('a, area');
       var href = a.attr('href').match(/(\d+)$/);
       if(href){
-        a.closest('.content-area').find('a').removeClass('last-clicked');
+        a.closest('.content-area').find('a, area').removeClass('last-clicked');
         a.addClass('last-clicked');
         renderBlock(parseInt(href[0]), parseInt(a.attr('target')));
         return false;
